@@ -9,22 +9,22 @@ export default function TestimonialsSection() {
         {/* Testimonial 1 */}
         <div className="bg-gray-50 p-8 flex flex-col shadow-sm border border-gray-100">
           <p className="italic text-lg text-gray-700 flex-grow mb-12">
-            "Everything is great, I have used it a few times and I have to say I am really impresed. The quality and performance have exceeded my expectations, and it's been a pleasure to use. It's reliable, easy to use, and definitely worth it. I am very happy with it."
+            "Everything is great, I have used it a few times and I have to say I am really impresed. The quality and performance have exceeded my expectations, and it's been a pleasure to use. It’s reliable, easy to use, and definitely worth it. I am very happy with it."
           </p>
           <div className="mt-auto">
             <div className="w-12 h-12 mb-4 text-yellow-500">
               {/* Logo Placeholder */}
               <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8"><path d="M12 2L2 12l10 10 10-10L12 2zm0 3.5l6.5 6.5-6.5 6.5-6.5-6.5L12 5.5z"/></svg>
             </div>
-            <p className="font-bold uppercase tracking-wide">DR. RUXANDRA.</p>
-            <p className="uppercase tracking-wide">3 DENTAL DUBLIN.</p>
+            <p className="font-bold uppercase tracking-wide">Dr. Ruxandra.</p>
+            <p className="uppercase tracking-wide">3 Dental Dublin.</p>
           </div>
         </div>
 
         {/* Testimonial 2 */}
         <div className="bg-gray-50 p-8 flex flex-col shadow-sm border border-gray-100">
           <p className="italic text-lg text-gray-700 flex-grow mb-12">
-            "I have been using the laser unit and it is performing just as I hoped. It's been reliable, smooth, and overall a great experience. Looking forward to more results with continued use."
+            "I have been using the laser and it is performing just as I hoped. It’s been reliable, smooth, and overall a great experience. Looking forward to more results with continued use."
           </p>
           <div className="mt-auto">
             <div className="w-12 h-12 mb-4 text-yellow-500">

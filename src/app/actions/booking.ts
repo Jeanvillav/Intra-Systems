@@ -169,6 +169,12 @@ export async function submitBooking(data: any) {
             <p><strong>Zoom Link:</strong> <a href="${zoomLink}">${zoomLink}</a></p>
             <p>I look forward to discussing how we can help you achieve perfect gingival margins in under 1 minute.</p>
             <br/>
+            <p>If you need to change your appointment, you can do so here:</p>
+            <p>
+              <a href="${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/booking/edit?id=${insertedData.id}">Reschedule Appointment</a> | 
+              <a href="${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/booking/cancel?id=${insertedData.id}">Cancel Appointment</a>
+            </p>
+            <br/>
             <p>Best regards,</p>
             <p><strong>Kevin Easter</strong><br/>Co-Founder, Intra-Systems</p>
           `,
@@ -202,4 +208,152 @@ export async function submitBooking(data: any) {
     console.error("Action error:", err);
     return { success: false, error: err.message || "Unknown error occurred" };
   }
+}
+
+// -----------------------------------------------------------------------------
+// NEW FUNCTIONS: Availability, Cancellation, Rescheduling & Email Sequences
+// -----------------------------------------------------------------------------
+
+export async function getAvailableSlots(dateString: string) {
+  try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    // Get the start and end of the provided date in GMT-5 (Ecuador)
+    const targetDate = new Date(dateString);
+    const year = targetDate.getFullYear();
+    const month = String(targetDate.getMonth() + 1).padStart(2, '0');
+    const day = String(targetDate.getDate()).padStart(2, '0');
+    
+    // Create ISO string range for that specific day in GMT-5
+    const startOfDayStr = `${year}-${month}-${day}T00:00:00-05:00`;
+    const endOfDayStr = `${year}-${month}-${day}T23:59:59-05:00`;
+
+    const { data, error } = await supabase
+      .from("bookings")
+      .select("meeting_time")
+      .gte("meeting_time", startOfDayStr)
+      .lte("meeting_time", endOfDayStr)
+      .neq("status", "cancelled");
+
+    if (error) throw error;
+
+    // Return array of ISO strings that are already booked
+    return data.map((b: any) => new Date(b.meeting_time).toISOString());
+  } catch (err) {
+    console.error("Error fetching available slots:", err);
+    return [];
+  }
+}
+
+export async function getBookingById(id: string) {
+  try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    const { data, error } = await supabase
+      .from("bookings")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error) throw error;
+    return { success: true, booking: data };
+  } catch (err: any) {
+    return { success: false, error: err.message };
+  }
+}
+
+export async function cancelBooking(id: string) {
+  try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    const { data, error } = await supabase
+      .from("bookings")
+      .update({ status: 'cancelled' })
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    // Trigger Cancel Email Sequence
+    await sendCancelSequence(data);
+
+    return { success: true };
+  } catch (err: any) {
+    console.error("Cancel error:", err);
+    return { success: false, error: err.message };
+  }
+}
+
+export async function rescheduleBooking(id: string, newMeetingTime: string) {
+  try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    // 1. Verify availability first
+    const { data: existingData, error: existingError } = await supabase
+      .from("bookings")
+      .select("*")
+      .eq("meeting_time", newMeetingTime)
+      .neq("status", "cancelled");
+      
+    if (existingData && existingData.length > 0) {
+      return { success: false, error: "Time slot already booked" };
+    }
+
+    // 2. Fetch the old booking details for email and zoom
+    const { data: oldBooking, error: fetchError } = await supabase
+      .from("bookings")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (fetchError) throw fetchError;
+
+    // 3. Create a NEW Zoom meeting (we leave the old one alone, it will just expire, or you can delete it if you store the meeting ID)
+    let zoomLink = oldBooking.zoom_link;
+    if (process.env.ZOOM_ACCOUNT_ID) {
+      const zoomToken = await getZoomAccessToken();
+      const meetingTopic = `Rescheduled Consultation: ${oldBooking.first_name} ${oldBooking.last_name} - Intra Systems`;
+      zoomLink = await createZoomMeeting(zoomToken, meetingTopic, newMeetingTime);
+    }
+
+    // 4. Update the DB
+    const { data, error } = await supabase
+      .from("bookings")
+      .update({ meeting_time: newMeetingTime, zoom_link: zoomLink, status: 'confirmed' })
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    // Trigger Reschedule Email Sequence
+    await sendRescheduleSequence(data);
+
+    return { success: true };
+  } catch (err: any) {
+    console.error("Reschedule error:", err);
+    return { success: false, error: err.message };
+  }
+}
+
+// -----------------------------------------------------------------------------
+// PENDING EMAIL SEQUENCES (A la espera de textos y videos del Tío Kevin)
+// -----------------------------------------------------------------------------
+async function sendCancelSequence(bookingData: any) {
+  // TODO: Add cancellation drip sequence via Cron or immediately send cancellation email
+  console.log(`[Email Sequence] Booking Cancelled for ${bookingData.email}`);
+}
+
+async function sendRescheduleSequence(bookingData: any) {
+  // TODO: Add reschedule sequence via Cron or immediately send reschedule confirmation
+  console.log(`[Email Sequence] Booking Rescheduled for ${bookingData.email} to ${bookingData.meeting_time}`);
 }

@@ -2,11 +2,13 @@
 
 @theme {
   --font-sans: var(--font-montserrat);
-  --color-primary-dark: #0a1124;
-  --color-primary-dark-gradient-start: #0d172e;
-  --color-primary-dark-gradient-end: #091124;
-  --color-accent-yellow: #fcf133;
-  --color-accent-green: #e3f0d3;
+  --font-serif: var(--font-playfair);
+  --color-primary-dark: #141B4D;
+  --color-primary-dark-gradient-start: #0a1124;
+  --color-primary-dark-gradient-end: #141B4D;
+  --color-accent-yellow: #fdf354;
+  --color-accent-green: #dde9cd;
+  --color-light-bg: #f9f9f9;
 }
 
 @layer base {
@@ -36,7 +38,7 @@ body {
 }
 
 .btn-primary {
-  @apply border-2 border-white px-8 py-4 uppercase tracking-wider transition-all duration-300 font-bold hover:bg-white hover:text-[#091124] inline-block text-center cursor-pointer;
+  @apply border border-white bg-transparent text-white px-10 py-4 uppercase tracking-widest transition-all duration-300 font-bold hover:bg-white hover:text-[#091124] inline-block text-center cursor-pointer font-serif;
 }
 
 /* React Calendar Overrides */

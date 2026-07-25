@@ -18,14 +18,17 @@ export default function AboutSection() {
           <div>
             <h3 className="font-bold text-xl uppercase mb-2">KEVIN EASTER- CO-FOUNDER OF INTRA SYSTEMS</h3>
             <p className="text-gray-700 leading-relaxed">
-              My name is Kevin Easter, Co-Founder of INTRA Systems, and I bring over 20 years of experience in the dental industry, starting in the UK in 1997.
+              My name is Kevin Easter, Co-Founder of INTRA Systems, and I bring over 20 years of experience in the dental industry, starting in the UK in 1997. I’ve had the privilege of working with some of the biggest names in the field and have spent the last 12+ years specializing in dental lasers for both hard and soft tissue applications.
+            </p>
+            <p className="text-gray-700 leading-relaxed mt-4">
+              I’m passionate about helping dental practices and professionals discover how laser technology can transform patient care and enhance practice efficiency. Let’s explore how I can support your team in leveraging these advancements..
             </p>
           </div>
 
           <div>
             <h3 className="font-bold text-xl uppercase mb-2 bg-[var(--color-accent-green)] inline-block px-2">MY JOURNEY</h3>
             <p className="text-gray-700 leading-relaxed mt-4">
-              My journey in the dental industry has been one of growth and discovery. With over 12 years specializing in dental lasers, I've witnessed firsthand how this technology can transform patient care and practice efficiency. My mission is to help dental professionals unlock the full potential of lasers, guiding them toward success and innovation in their practices.
+              My journey in the dental industry has been one of growth and discovery. With over 12 years specializing in dental lasers, I’ve witnessed firsthand how this technology can transform patient care and practice efficiency. My mission is to help dental professionals unlock the full potential of lasers, guiding them toward success and innovation in their practices..
             </p>
           </div>
 
@@ -37,16 +40,16 @@ export default function AboutSection() {
           </div>
 
           <div>
-            <h3 className="font-bold text-xl uppercase mb-2 bg-[var(--color-accent-green)] inline-block px-2">SUPPORT EXPERT</h3>
+            <h3 className="font-bold text-xl uppercase mb-2 bg-[var(--color-accent-green)] inline-block px-2">MY HOBBIES</h3>
             <p className="text-gray-700 leading-relaxed mt-4">
-              As your go-to resource for dental laser technology, I bring years of experience and a genuine passion for helping practices thrive. I'm here to offer friendly, tailored support, providing you with the tools and strategies you need to enhance patient care, boost efficiency, and take your practice to the next level.
+              Beyond my work, I find balance and inspiration in spending quality time with my family and maintaining a healthy, active lifestyle through regular workouts. This commitment keeps me energized but also sharpens my focus and determination, qualities I bring to guiding dental professionals
             </p>
           </div>
 
           <div>
-            <h3 className="font-bold text-xl uppercase mb-2 bg-[var(--color-accent-green)] inline-block px-2">MY HOBBIES</h3>
+            <h3 className="font-bold text-xl uppercase mb-2 bg-[var(--color-accent-green)] inline-block px-2">SUPPORT EXPERT</h3>
             <p className="text-gray-700 leading-relaxed mt-4">
-              Beyond my work, I find balance and inspiration in spending quality time with my family and maintaining a healthy, active lifestyle through regular workouts. This commitment keeps me energized but also sharpens my focus and determination, qualities I bring to guiding dental professionals.
+              As your go-to resource for dental laser technology, I bring years of experience and a genuine passion for helping practices thrive. I'm here to offer friendly, tailored support, providing you with the tools and strategies you need to enhance patient care, boost efficiency, and take your practice to the next level.
             </p>
           </div>
 

@@ -57,7 +57,7 @@ export default function BookingSection() {
   }
 
   // Handle Date Selection
-  const handleDateChange = (value: Value) => {
+  const handleDateChange = async (value: Value) => {
     setDate(value);
     setSelectedSlot(null);
     
@@ -71,13 +71,25 @@ export default function BookingSection() {
       const now = new Date();
       const bufferMs = 30 * 60 * 1000; // 30 minutes
 
+      // Fetch booked slots for this day from server
+      let bookedIsoStrings: string[] = [];
+      try {
+        const { getAvailableSlots } = await import("@/app/actions/booking");
+        const dateString = `${year}-${month}-${day}T00:00:00-05:00`;
+        bookedIsoStrings = await getAvailableSlots(dateString);
+      } catch (err) {
+        console.error("Failed to fetch booked slots", err);
+      }
+
       for (let hour = 13; hour <= 19; hour++) {
         // Create an ISO string with the fixed -05:00 offset for Ecuador
         const isoString = `${year}-${month}-${day}T${String(hour).padStart(2, '0')}:00:00-05:00`;
         const slotDate = new Date(isoString);
 
-        // Only add slot if it's at least 30 minutes in the future
-        if (slotDate.getTime() - now.getTime() >= bufferMs) {
+        // Only add slot if it's at least 30 minutes in the future AND not booked
+        const isBooked = bookedIsoStrings.includes(slotDate.toISOString());
+        
+        if (slotDate.getTime() - now.getTime() >= bufferMs && !isBooked) {
           slots.push(slotDate);
         }
       }

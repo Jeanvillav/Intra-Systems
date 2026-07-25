@@ -31,16 +31,7 @@ export default function LetterSection() {
             <li>You don't have to worry about gums colapsing.</li>
           </ul>
 
-          <div className="w-full flex justify-center py-8">
-            <div className="relative w-full max-w-2xl h-[600px]">
-              <Image 
-                src="/diagrama.jpeg" 
-                alt="Retraction Cord vs Diode Laser" 
-                fill 
-                className="object-contain"
-              />
-            </div>
-          </div>
+
 
           <p className="font-bold text-xl pt-4">Instead...</p>
           <ul className="space-y-4 pl-4">
