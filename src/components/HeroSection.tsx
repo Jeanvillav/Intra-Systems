@@ -11,10 +11,14 @@ export default function HeroSection() {
         </p>
 
         <div className="my-12 relative w-full pt-[56.25%] bg-black border-2 border-white/20 rounded-lg shadow-2xl overflow-hidden">
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-white/50">
-            <span className="mb-2">▶ Enable sound</span>
-            <span>[ 5-Minute Video Pitch Placeholder ]</span>
-          </div>
+          <iframe
+            className="absolute inset-0 w-full h-full"
+            src="https://www.youtube.com/embed/Hv8_lFwsaQs?autoplay=1&mute=1&rel=0"
+            title="Intra-Systems Pitch"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
         </div>
 
         <a href="#booking" className="btn-primary">
