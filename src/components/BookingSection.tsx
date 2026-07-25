@@ -68,10 +68,18 @@ export default function BookingSection() {
       const day = String(value.getDate()).padStart(2, '0');
       
       const slots = [];
+      const now = new Date();
+      const bufferMs = 30 * 60 * 1000; // 30 minutes
+
       for (let hour = 13; hour <= 19; hour++) {
         // Create an ISO string with the fixed -05:00 offset for Ecuador
         const isoString = `${year}-${month}-${day}T${String(hour).padStart(2, '0')}:00:00-05:00`;
-        slots.push(new Date(isoString));
+        const slotDate = new Date(isoString);
+
+        // Only add slot if it's at least 30 minutes in the future
+        if (slotDate.getTime() - now.getTime() >= bufferMs) {
+          slots.push(slotDate);
+        }
       }
       setAvailableSlots(slots);
     } else {

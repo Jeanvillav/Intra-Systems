@@ -80,6 +80,13 @@ async function createZoomMeeting(accessToken: string, topic: string, startTime: 
 
 export async function submitBooking(data: any) {
   try {
+    const meetingTime = new Date(data.meeting_time);
+    const now = new Date();
+    const bufferMs = 30 * 60 * 1000;
+
+    if (meetingTime.getTime() - now.getTime() < bufferMs) {
+      return { success: false, error: "Bookings must be made at least 30 minutes in advance. Please select another time." };
+    }
     // Use the Service Role Key to bypass RLS policies (since this is a trusted Server Action)
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
     const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
