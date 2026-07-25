@@ -2,11 +2,11 @@ export default function HeroSection() {
   return (
     <section className="w-full bg-hero px-4 py-16 flex flex-col items-center text-center">
       <div className="max-w-4xl w-full">
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold leading-relaxed tracking-wide text-white uppercase">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-relaxed md:leading-relaxed lg:leading-relaxed tracking-wide text-white uppercase">
           HERE IS HOW WE GIVE YOU <span className="text-highlight">TOTAL CONTROL OF GINGIVAL MARGINS, FLUIDS, AND MOISTURE IN UNDER 1 MINUTE</span>, ALLOWING YOU TO ACHIEVE FAST DETAILED IMPRESSIONS AND FLAWLESS RESTORATIONS EVERY TIME, <span className="text-highlight">WITHOUT USING COMPLICATED, TIME-CONSUMING RETRACTION CORDS.</span>
         </h1>
         
-        <p className="mt-8 text-lg md:text-xl text-white uppercase tracking-wider">
+        <p className="mt-8 text-xl md:text-2xl text-white uppercase tracking-wider">
           (WITHOUT COMPLEX IMPLEMENTATIONS OR BREAKING THE BANK)
         </p>
 
