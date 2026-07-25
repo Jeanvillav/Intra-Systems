@@ -1,10 +1,16 @@
 "use server";
 
 import { createClient } from "@supabase/supabase-js";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import { formatInTimeZone } from 'date-fns-tz';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD,
+  },
+});
 
 // Zoom Server-to-Server OAuth helper
 async function getZoomAccessToken() {
@@ -135,9 +141,9 @@ export async function submitBooking(data: any) {
       return { success: false, error: "Booking saved, but Zoom link generation failed. We will email it to you manually." };
     }
 
-    // 3. Send Immediate Confirmation Email via Resend
+    // 3. Send Immediate Confirmation Email via Nodemailer (Gmail)
     try {
-      if (process.env.RESEND_API_KEY) {
+      if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
         const dateStr = new Date(data.meeting_time).toLocaleString("en-GB", {
           timeZone: "America/Guayaquil", // Or the user's timezone if you pass it
           dateStyle: "full",
@@ -145,9 +151,8 @@ export async function submitBooking(data: any) {
         });
 
         // Send email to the client
-        await resend.emails.send({
-          from: "Intra-Systems <info@intra-systems.com>", // MUST be a verified domain
-          reply_to: "intra.systems.ik@gmail.com", // When the client hits "Reply", it goes here
+        await transporter.sendMail({
+          from: `"Intra-Systems" <${process.env.GMAIL_USER}>`,
           to: data.email,
           subject: "Your Intra-Systems Consultation is Confirmed!",
           html: `
@@ -163,9 +168,9 @@ export async function submitBooking(data: any) {
         });
 
         // Send email to the owner
-        await resend.emails.send({
-          from: "Intra-Systems Test <onboarding@resend.dev>", // TODO: Change back to info@intra-systems.com after verifying domain in Resend
-          to: "intra.systems.ik@gmail.com", // Owner email
+        await transporter.sendMail({
+          from: `"Intra-Systems System" <${process.env.GMAIL_USER}>`,
+          to: process.env.GMAIL_USER, // Owner email (sends to itself as notification)
           subject: `New Booking: ${data.firstName} ${data.lastName}`,
           html: `
             <h2>New Consultation Scheduled</h2>
@@ -178,7 +183,7 @@ export async function submitBooking(data: any) {
           `,
         });
       } else {
-        console.warn("Resend API key not provided, skipping email.");
+        console.warn("Gmail credentials not provided, skipping email.");
       }
     } catch (e) {
       console.error("Email sending failed", e);

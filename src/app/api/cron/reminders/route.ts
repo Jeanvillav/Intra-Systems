@@ -1,20 +1,28 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   try {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-    const resendApiKey = process.env.RESEND_API_KEY;
+    const gmailUser = process.env.GMAIL_USER;
+    const gmailPass = process.env.GMAIL_APP_PASSWORD;
 
-    if (!supabaseUrl || !supabaseServiceKey || !resendApiKey) {
+    if (!supabaseUrl || !supabaseServiceKey || !gmailUser || !gmailPass) {
        console.error("Missing critical environment variables for cron.");
        return NextResponse.json({ error: "Server Configuration Error" }, { status: 500 });
     }
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
-    const resend = new Resend(resendApiKey);
+    
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: gmailUser,
+        pass: gmailPass,
+      },
+    });
 
     // 1. Verify Authorization Header to ensure only Supabase pg_cron can call this
     const authHeader = req.headers.get("Authorization");
@@ -40,8 +48,8 @@ export async function POST(req: Request) {
     if (reminderError) throw reminderError;
 
     for (const booking of reminderBookings || []) {
-      await resend.emails.send({
-        from: "Kevin from Intra-Systems <info@intra-systems.com>",
+      await transporter.sendMail({
+        from: `"Intra-Systems" <${gmailUser}>`,
         to: booking.email,
         subject: "Reminder: Our call is in 30 minutes!",
         html: `
