@@ -144,8 +144,10 @@ export async function submitBooking(data: any) {
           timeStyle: "short",
         });
 
+        // Send email to the client
         await resend.emails.send({
-          from: "Intra-Systems Test <onboarding@resend.dev>", // TODO: Change back to info@intra-systems.com after verifying domain in Resend
+          from: "Intra-Systems <info@intra-systems.com>", // MUST be a verified domain
+          reply_to: "intra.systems.ik@gmail.com", // When the client hits "Reply", it goes here
           to: data.email,
           subject: "Your Intra-Systems Consultation is Confirmed!",
           html: `
@@ -157,6 +159,22 @@ export async function submitBooking(data: any) {
             <br/>
             <p>Best regards,</p>
             <p><strong>Kevin Easter</strong><br/>Co-Founder, Intra-Systems</p>
+          `,
+        });
+
+        // Send email to the owner
+        await resend.emails.send({
+          from: "Intra-Systems Test <onboarding@resend.dev>", // TODO: Change back to info@intra-systems.com after verifying domain in Resend
+          to: "intra.systems.ik@gmail.com", // Owner email
+          subject: `New Booking: ${data.firstName} ${data.lastName}`,
+          html: `
+            <h2>New Consultation Scheduled</h2>
+            <p><strong>Name:</strong> ${data.firstName} ${data.lastName}</p>
+            <p><strong>Email:</strong> ${data.email}</p>
+            <p><strong>Phone:</strong> ${data.phone}</p>
+            <p><strong>Question/Challenge:</strong> ${data.question || "None provided"}</p>
+            <p><strong>Date & Time:</strong> ${dateStr}</p>
+            <p><strong>Zoom Link:</strong> <a href="${zoomLink}">${zoomLink}</a></p>
           `,
         });
       } else {
