@@ -27,15 +27,15 @@ export default function PillarsSection() {
           ACHIEVE PRACTICE GROWTH, PATIENT LOYALTY AND LOVE LASER DENTISTRY
         </h2>
         <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-[var(--color-accent-green)] text-[#091124] p-8 text-center flex flex-col items-center border-t-8 border-yellow-400">
+          <div className="bg-[var(--color-accent-green)] text-[#091124] p-8 text-center flex flex-col items-center">
             <h4 className="font-bold text-lg uppercase mb-4">Patient Growth</h4>
             <p className="font-medium text-sm">Attracts more patients effortlessly, helping you grow your practice by offering modern, comfortable procedures.</p>
           </div>
-          <div className="bg-white border-2 border-gray-100 shadow-xl text-[#091124] p-8 text-center flex flex-col items-center border-t-8 border-yellow-400">
+          <div className="bg-white border-2 border-gray-100 shadow-xl text-[#091124] p-8 text-center flex flex-col items-center">
             <h4 className="font-bold text-lg uppercase mb-4">Patient Loyalty</h4>
             <p className="font-medium text-sm">Achieve balance, and cultivate patient loyalty through superior clinical outcomes and less post-op discomfort.</p>
           </div>
-          <div className="bg-[var(--color-accent-green)] text-[#091124] p-8 text-center flex flex-col items-center border-t-8 border-yellow-400">
+          <div className="bg-[var(--color-accent-green)] text-[#091124] p-8 text-center flex flex-col items-center">
             <h4 className="font-bold text-lg uppercase mb-4">Love Laser Dentistry</h4>
             <p className="font-medium text-sm">All the new production comes from the soft tissue, expanding your services and reigniting your passion for dentistry.</p>
           </div>
