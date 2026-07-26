@@ -2,6 +2,7 @@
 
 import { createClient } from "@supabase/supabase-js";
 import nodemailer from "nodemailer";
+import { getBookedEmail1, getCancelledEmail1 } from "@/lib/emailTemplates";
 import { formatInTimeZone } from 'date-fns-tz';
 
 const transporter = nodemailer.createTransport({
@@ -151,33 +152,22 @@ export async function submitBooking(data: any) {
     // 3. Send Immediate Confirmation Email via Nodemailer (Gmail)
     try {
       if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
-        const dateStr = new Date(data.meeting_time).toLocaleString("en-GB", {
-          timeZone: "America/Guayaquil", // Or the user's timezone if you pass it
-          dateStyle: "full",
-          timeStyle: "short",
-        });
+        const bookingData = {
+          id: insertedData.id,
+          first_name: data.firstName,
+          email: data.email,
+          meeting_time: data.meeting_time,
+          zoom_link: zoomLink
+        };
+
+        const emailTemplate = getBookedEmail1(bookingData);
 
         // Send email to the client
         await transporter.sendMail({
           from: `"Intra-Systems" <${process.env.GMAIL_USER}>`,
           to: data.email,
-          subject: "Your Intra-Systems Consultation is Confirmed!",
-          html: `
-            <h2>Hi ${data.firstName},</h2>
-            <p>Thank you for booking your consultation with Intra-Systems.</p>
-            <p><strong>Date & Time:</strong> ${dateStr} (Ecuador Time)</p>
-            <p><strong>Zoom Link:</strong> <a href="${zoomLink}">${zoomLink}</a></p>
-            <p>I look forward to discussing how we can help you achieve perfect gingival margins in under 1 minute.</p>
-            <br/>
-            <p>If you need to change your appointment, you can do so here:</p>
-            <p>
-              <a href="${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/booking/edit?id=${insertedData.id}">Reschedule Appointment</a> | 
-              <a href="${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/booking/cancel?id=${insertedData.id}">Cancel Appointment</a>
-            </p>
-            <br/>
-            <p>Best regards,</p>
-            <p><strong>Kevin Easter</strong><br/>Co-Founder, Intra-Systems</p>
-          `,
+          subject: emailTemplate.subject,
+          html: emailTemplate.html,
         });
 
         // Send email to the owner
@@ -349,11 +339,46 @@ export async function rescheduleBooking(id: string, newMeetingTime: string) {
 // PENDING EMAIL SEQUENCES (A la espera de textos y videos del Tío Kevin)
 // -----------------------------------------------------------------------------
 async function sendCancelSequence(bookingData: any) {
-  // TODO: Add cancellation drip sequence via Cron or immediately send cancellation email
-  console.log(`[Email Sequence] Booking Cancelled for ${bookingData.email}`);
+  try {
+    const emailData = getCancelledEmail1(bookingData);
+    await transporter.sendMail({
+      from: `"Intra-Systems" <${process.env.GMAIL_USER}>`,
+      to: bookingData.email,
+      subject: emailData.subject,
+      html: emailData.html,
+    });
+    
+    // Set cancelled_step to 1 to trigger Cron for next steps
+    const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+    await supabase.from("bookings").update({ 
+      cancelled_step: 1, 
+      last_email_sent_at: new Date().toISOString() 
+    }).eq("id", bookingData.id);
+    
+    console.log(`[Email Sequence] Cancel Email #1 sent to ${bookingData.email}`);
+  } catch (err) {
+    console.error("Failed to send cancel sequence start:", err);
+  }
 }
 
 async function sendRescheduleSequence(bookingData: any) {
-  // TODO: Add reschedule sequence via Cron or immediately send reschedule confirmation
-  console.log(`[Email Sequence] Booking Rescheduled for ${bookingData.email} to ${bookingData.meeting_time}`);
+  try {
+    const emailData = getBookedEmail1(bookingData);
+    await transporter.sendMail({
+      from: `"Intra-Systems" <${process.env.GMAIL_USER}>`,
+      to: bookingData.email,
+      subject: "Rescheduled: " + emailData.subject,
+      html: emailData.html,
+    });
+    
+    // Reset reminder so it triggers again 30 mins before the NEW time
+    const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+    await supabase.from("bookings").update({ 
+      reminder_30m_sent: false
+    }).eq("id", bookingData.id);
+    
+    console.log(`[Email Sequence] Reschedule Email sent to ${bookingData.email}`);
+  } catch (err) {
+    console.error("Failed to send reschedule sequence start:", err);
+  }
 }
