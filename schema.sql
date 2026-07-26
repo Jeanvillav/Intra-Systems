@@ -11,8 +11,13 @@ CREATE TABLE bookings (
     question TEXT,
     meeting_time TIMESTAMP WITH TIME ZONE NOT NULL,
     zoom_link TEXT,
-    status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'confirmed', 'cancelled')),
+    status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'confirmed', 'cancelled', 'no-show', 'no-sale')),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    reminder_30m_sent BOOLEAN DEFAULT FALSE,
+    no_show_step INT DEFAULT 0,
+    no_sale_step INT DEFAULT 0,
+    cancelled_step INT DEFAULT 0,
+    last_email_sent_at TIMESTAMP WITH TIME ZONE,
     
     -- THIS IS THE CRITICAL DOUBLE-BOOKING PREVENTION CONSTRAINT
     CONSTRAINT unique_meeting_time UNIQUE (meeting_time)
