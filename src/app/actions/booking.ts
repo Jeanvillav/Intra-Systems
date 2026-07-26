@@ -170,6 +170,12 @@ export async function submitBooking(data: any) {
           html: emailTemplate.html,
         });
 
+        const dateStr = new Date(data.meeting_time).toLocaleString("en-GB", {
+          timeZone: "America/Guayaquil",
+          dateStyle: "full",
+          timeStyle: "short",
+        });
+
         // Send email to the owner
         await transporter.sendMail({
           from: `"Intra-Systems System" <${process.env.GMAIL_USER}>`,

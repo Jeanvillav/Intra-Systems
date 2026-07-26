@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 
 import nodemailer from "nodemailer";
 import { getNoSaleEmail1, getNoShowEmail1, BookingData } from "@/lib/emailTemplates";
+import { checkAuth } from "./auth";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -19,6 +20,9 @@ const transporter = nodemailer.createTransport({
 });
 
 export async function getAllBookings() {
+  const isAuth = await checkAuth();
+  if (!isAuth) return { success: false, error: "Unauthorized" };
+
   try {
     const { data, error } = await supabase
       .from("bookings")
@@ -37,6 +41,9 @@ export async function getAllBookings() {
 }
 
 export async function markBookingStatus(id: string, newStatus: 'no-show' | 'no-sale') {
+  const isAuth = await checkAuth();
+  if (!isAuth) return { success: false, error: "Unauthorized" };
+
   try {
     const { data: booking, error: fetchError } = await supabase
       .from("bookings")

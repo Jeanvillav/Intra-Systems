@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -12,9 +13,9 @@ export default function Footer() {
         <div className="relative w-72 h-24">
           <Image src="/logo.png" alt="Intra-Systems Logo" fill className="object-contain" />
         </div>
-        <p className="text-gray-400 text-sm tracking-widest uppercase mt-4">
+        <Link href="/admin" className="text-gray-400 text-sm tracking-widest uppercase mt-4 hover:text-gray-300 transition-colors">
           Copyright 2025. All rights reserved
-        </p>
+        </Link>
       </div>
     </footer>
   );
