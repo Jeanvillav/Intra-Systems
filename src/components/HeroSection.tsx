@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 export default function HeroSection() {
   const t = useTranslations('HeroSection');
   return (
-    <section className="w-full bg-hero px-4 py-16 flex flex-col items-center text-center">
+    <section className="w-full bg-hero px-4 pt-28 pb-16 flex flex-col items-center text-center">
       <div className="max-w-4xl w-full">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold leading-relaxed md:leading-relaxed lg:leading-relaxed tracking-wide text-white uppercase">
           {t('titlePrefix')} <span className="text-highlight">{t('titleHighlight1')}</span>{t('titleMiddle')}<span className="text-highlight">{t('titleHighlight2')}</span>

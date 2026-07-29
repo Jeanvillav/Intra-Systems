@@ -13,34 +13,30 @@ export default function TestimonialsSection() {
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8">
         
         {/* Testimonial 1 */}
-        <div className="bg-white rounded-xl p-8 shadow-xl flex flex-col relative pt-12 mt-8">
-          <div className="absolute -top-10 left-8">
-            <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-white shadow-md">
-              <Image src="/doc1.jpeg" alt="Dr. Ruxandra" fill className="object-cover" />
-            </div>
-          </div>
-          <p className="text-gray-700 italic leading-relaxed flex-grow">
+        <div className="bg-white rounded-xl p-8 shadow-xl flex flex-col mt-8">
+          <p className="text-gray-700 italic leading-relaxed flex-grow mb-12">
             "{t('t1')}"
           </p>
-          <div className="mt-6 flex flex-col items-end border-t border-gray-100 pt-4">
-            <h4 className="font-bold text-[#141B4D] text-lg">{t('author1')}</h4>
-            <p className="text-sm text-gray-500">{t('clinic1')}</p>
+          <div className="mt-auto">
+            <div className="w-24 h-12 mb-4 relative">
+              <Image src="/testimonial_logo.png" alt="3 Dental Dublin Logo" fill className="object-contain object-left" />
+            </div>
+            <h4 className="font-bold text-[#141B4D] text-lg uppercase tracking-wide">{t('author1')}</h4>
+            <p className="text-sm text-gray-500 uppercase tracking-wide">{t('clinic1')}</p>
           </div>
         </div>
 
         {/* Testimonial 2 */}
-        <div className="bg-white rounded-xl p-8 shadow-xl flex flex-col relative pt-12 mt-8">
-          <div className="absolute -top-10 left-8">
-            <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-white shadow-md">
-              <Image src="/doc2.jpeg" alt="Dr. Brent" fill className="object-cover" />
-            </div>
-          </div>
-          <p className="text-gray-700 italic leading-relaxed flex-grow">
+        <div className="bg-white rounded-xl p-8 shadow-xl flex flex-col mt-8">
+          <p className="text-gray-700 italic leading-relaxed flex-grow mb-12">
             "{t('t2')}"
           </p>
-          <div className="mt-6 flex flex-col items-end border-t border-gray-100 pt-4">
-            <h4 className="font-bold text-[#141B4D] text-lg">{t('author2')}</h4>
-            <p className="text-sm text-gray-500">{t('clinic2')}</p>
+          <div className="mt-auto">
+            <div className="w-24 h-12 mb-4 relative">
+              <Image src="/testimonial_logo.png" alt="Chapel House Dentistry Logo" fill className="object-contain object-left" />
+            </div>
+            <h4 className="font-bold text-[#141B4D] text-lg uppercase tracking-wide">{t('author2')}</h4>
+            <p className="text-sm text-gray-500 uppercase tracking-wide">{t('clinic2')}</p>
           </div>
         </div>
 

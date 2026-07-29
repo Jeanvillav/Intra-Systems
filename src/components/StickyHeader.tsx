@@ -35,8 +35,8 @@ export default function StickyHeader() {
 
   return (
     <div 
-      className={`fixed top-0 left-0 w-full z-50 bg-[#091124] shadow-lg transition-transform duration-300 border-b border-white/10 ${
-        isScrolled ? "translate-y-0" : "-translate-y-full"
+      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 border-b border-white/10 ${
+        isScrolled ? "bg-[#091124] shadow-lg" : "bg-[#091124]"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
