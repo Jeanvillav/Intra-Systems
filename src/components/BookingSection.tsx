@@ -17,7 +17,10 @@ const bookingSchema = z.object({
   lastName: z.string().min(2, "Last name is required"),
   email: z.string().email("Please enter a valid email address"),
   phone: z.string().min(10, "Please enter a valid phone number"),
-  question: z.string().optional(),
+  question: z.string().min(2, "This field is required"),
+  termsAccepted: z.literal(true, {
+    errorMap: () => ({ message: "You must accept the terms and conditions" }),
+  }),
 });
 
 type BookingFormData = z.infer<typeof bookingSchema>;
@@ -269,7 +272,21 @@ export default function BookingSection() {
                       rows={3} 
                       className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                     ></textarea>
+                    {errors.question && <p className="text-red-500 text-xs mt-1">{errors.question.message}</p>}
                   </div>
+
+                  <div className="flex items-start gap-3 mt-4">
+                    <input 
+                      type="checkbox" 
+                      id="terms"
+                      {...register("termsAccepted")}
+                      className="mt-1 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                    />
+                    <label htmlFor="terms" className="text-sm text-gray-600">
+                      {t('terms')}
+                    </label>
+                  </div>
+                  {errors.termsAccepted && <p className="text-red-500 text-xs">{errors.termsAccepted.message}</p>}
 
                   {submitMessage && (
                     <div className={`p-4 rounded-lg font-bold text-center ${submitMessage.type === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
