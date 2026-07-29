@@ -30,7 +30,7 @@ export default function HeroSection() {
 
         <a 
           href="#booking"
-          className="border border-white text-white bg-transparent font-['Aboreto'] font-bold uppercase tracking-wider px-10 py-5 hover:bg-white hover:text-[#141B4D] transition-colors duration-300 shadow-md inline-block"
+          className="border border-white text-white bg-transparent font-['Aboreto'] font-bold uppercase tracking-wider px-10 py-5 hover:bg-white hover:text-[#091124] transition-colors duration-300 shadow-md inline-block"
         >
           {tGlobal('makeAppointment')}
         </a>

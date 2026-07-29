@@ -71,7 +71,7 @@ export default function LetterSection() {
             <p className="text-xl font-bold uppercase text-[#fdf354]">{t('talkSoon')}</p>
             
             <div className="pt-6">
-              <a href="#booking" className="bg-[#fdf354] text-[#141B4D] border-2 border-[#fdf354] px-8 py-4 uppercase tracking-wider font-bold hover:bg-transparent hover:text-[#fdf354] transition-all duration-300 inline-block cursor-pointer">
+              <a href="#booking" className="bg-[#fdf354] text-[#091124] border-2 border-[#fdf354] px-8 py-4 uppercase tracking-wider font-bold hover:bg-transparent hover:text-[#fdf354] transition-all duration-300 inline-block cursor-pointer">
                 {t('makeAppointment')}
               </a>
             </div>

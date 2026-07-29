@@ -3,9 +3,9 @@
 @theme {
   --font-sans: var(--font-montserrat);
   --font-serif: var(--font-playfair);
-  --color-primary-dark: #141B4D;
+  --color-primary-dark: #091124;
   --color-primary-dark-gradient-start: #0a1124;
-  --color-primary-dark-gradient-end: #141B4D;
+  --color-primary-dark-gradient-end: #091124;
   --color-accent-yellow: #fdf354;
   --color-accent-green: #dde9cd;
   --color-light-bg: #f9f9f9;

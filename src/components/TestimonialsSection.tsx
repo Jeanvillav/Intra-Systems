@@ -21,7 +21,7 @@ export default function TestimonialsSection() {
             <div className="w-24 h-12 mb-4 relative">
               <Image src="/testimonial_logo.png" alt="3 Dental Dublin Logo" fill className="object-contain object-left" />
             </div>
-            <h4 className="font-bold text-[#141B4D] text-lg uppercase tracking-wide">{t('author1')}</h4>
+            <h4 className="font-bold text-[#091124] text-lg uppercase tracking-wide">{t('author1')}</h4>
             <p className="text-sm text-gray-500 uppercase tracking-wide">{t('clinic1')}</p>
           </div>
         </div>
@@ -35,7 +35,7 @@ export default function TestimonialsSection() {
             <div className="w-24 h-12 mb-4 relative">
               <Image src="/testimonial_logo.png" alt="Chapel House Dentistry Logo" fill className="object-contain object-left" />
             </div>
-            <h4 className="font-bold text-[#141B4D] text-lg uppercase tracking-wide">{t('author2')}</h4>
+            <h4 className="font-bold text-[#091124] text-lg uppercase tracking-wide">{t('author2')}</h4>
             <p className="text-sm text-gray-500 uppercase tracking-wide">{t('clinic2')}</p>
           </div>
         </div>

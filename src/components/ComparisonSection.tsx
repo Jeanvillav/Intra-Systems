@@ -21,7 +21,7 @@ export default function ComparisonSection() {
           
           {/* Without Lasers Column */}
           <div className="bg-[#DDE9CD] p-8 md:p-12 border border-transparent shadow-sm flex flex-col">
-            <h2 className="font-['Aboreto'] text-[#141B4D] text-2xl md:text-3xl uppercase font-bold mb-8">
+            <h2 className="font-['Aboreto'] text-[#091124] text-2xl md:text-3xl uppercase font-bold mb-8">
               {t('cmpTitle1')}
             </h2>
             <ul className="text-gray-900 space-y-6 text-lg leading-relaxed flex-grow">
@@ -50,21 +50,21 @@ export default function ComparisonSection() {
 
           {/* With Lasers Column */}
           <div className="bg-white p-8 md:p-12 border border-transparent shadow-xl flex flex-col transform md:-translate-y-4">
-            <h2 className="font-['Aboreto'] text-[#141B4D] text-2xl md:text-3xl uppercase font-bold mb-8 flex items-center">
-              <svg className="w-8 h-8 flex-shrink-0 text-[#141B4D] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <h2 className="font-['Aboreto'] text-[#091124] text-2xl md:text-3xl uppercase font-bold mb-8 flex items-center">
+              <svg className="w-8 h-8 flex-shrink-0 text-[#091124] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
               {t('cmpTitle2')}
             </h2>
             <ul className="text-gray-900 space-y-6 text-lg leading-relaxed flex-grow">
               <li className="flex items-start">
-                <svg className="w-6 h-6 flex-shrink-0 text-[#141B4D] mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                <svg className="w-6 h-6 flex-shrink-0 text-[#091124] mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                 <span>{t('cmpDesc2a')}</span>
               </li>
               <li className="flex items-start">
-                <svg className="w-6 h-6 flex-shrink-0 text-[#141B4D] mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                <svg className="w-6 h-6 flex-shrink-0 text-[#091124] mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                 <span>{t('cmpDesc2b')}</span>
               </li>
               <li className="flex items-start">
-                <svg className="w-6 h-6 flex-shrink-0 text-[#141B4D] mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                <svg className="w-6 h-6 flex-shrink-0 text-[#091124] mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                 <span>{t('cmpDesc2c')}</span>
               </li>
             </ul>
