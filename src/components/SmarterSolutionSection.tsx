@@ -3,11 +3,6 @@ import { useTranslations } from 'next-intl';
 export default function SmarterSolutionSection() {
   const t = useTranslations();
 
-  const scrollToBooking = (e: React.MouseEvent) => {
-    e.preventDefault();
-    document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section className="bg-[#141B4D] py-16 px-4">
       <div className="max-w-6xl mx-auto flex flex-col items-center text-center">
@@ -52,17 +47,16 @@ export default function SmarterSolutionSection() {
 
         </div>
 
-        {/* Call to action */}
         <div className="mt-16 text-center">
           <p className="text-white font-['Aboreto'] uppercase text-xl md:text-2xl mb-8">
             {t('smReadyText')}
           </p>
-          <button 
-            onClick={scrollToBooking}
-            className="border border-[#DDE9CD] text-white font-['Aboreto'] font-bold uppercase tracking-wider px-10 py-5 hover:bg-white hover:text-[#141B4D] transition-colors duration-300 shadow-md"
+          <a 
+            href="#booking"
+            className="border border-[#DDE9CD] text-white font-['Aboreto'] font-bold uppercase tracking-wider px-10 py-5 hover:bg-white hover:text-[#141B4D] transition-colors duration-300 shadow-md inline-block"
           >
             {t('makeAppointment')}
-          </button>
+          </a>
         </div>
 
       </div>

@@ -3,11 +3,6 @@ import { useTranslations } from 'next-intl';
 export default function PracticeGrowthSection() {
   const t = useTranslations();
 
-  const scrollToBooking = (e: React.MouseEvent) => {
-    e.preventDefault();
-    document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section className="bg-[#F9F9F9] py-16 px-4 border-t-2 border-black">
       <div className="max-w-6xl mx-auto flex flex-col items-center text-center">
@@ -61,14 +56,13 @@ export default function PracticeGrowthSection() {
 
         </div>
 
-        {/* Button */}
         <div className="mt-16">
-          <button 
-            onClick={scrollToBooking}
-            className="border border-[#141B4D] text-[#141B4D] font-['Aboreto'] font-bold uppercase tracking-wider px-10 py-5 hover:bg-[#141B4D] hover:text-white transition-colors duration-300 shadow-md"
+          <a 
+            href="#booking"
+            className="border border-[#141B4D] text-[#141B4D] font-['Aboreto'] font-bold uppercase tracking-wider px-10 py-5 hover:bg-[#141B4D] hover:text-white transition-colors duration-300 shadow-md inline-block"
           >
             {t('makeAppointment')}
-          </button>
+          </a>
         </div>
 
       </div>

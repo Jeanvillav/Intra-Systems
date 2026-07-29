@@ -4,11 +4,6 @@ export default function HeroSection() {
   const t = useTranslations('HeroSection');
   const tGlobal = useTranslations();
 
-  const scrollToBooking = (e: React.MouseEvent) => {
-    e.preventDefault();
-    document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section className="w-full bg-[#141B4D] px-4 pt-28 pb-16 flex flex-col items-center text-center">
       <div className="max-w-4xl w-full">
@@ -33,12 +28,12 @@ export default function HeroSection() {
           ></iframe>
         </div>
 
-        <button 
-          onClick={scrollToBooking}
-          className="border border-white text-white bg-transparent font-['Aboreto'] font-bold uppercase tracking-wider px-10 py-5 hover:bg-white hover:text-[#141B4D] transition-colors duration-300 shadow-md"
+        <a 
+          href="#booking"
+          className="border border-white text-white bg-transparent font-['Aboreto'] font-bold uppercase tracking-wider px-10 py-5 hover:bg-white hover:text-[#141B4D] transition-colors duration-300 shadow-md inline-block"
         >
           {tGlobal('makeAppointment')}
-        </button>
+        </a>
       </div>
     </section>
   );
