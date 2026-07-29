@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Montserrat, Playfair_Display } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -19,18 +23,30 @@ export const metadata: Metadata = {
   description: "Total control of gingival margins, fluids, and moisture in under 1 minute without using complicated, time-consuming retraction cords.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const resolvedParams = await params;
+  if (!routing.locales.includes(resolvedParams.locale as any)) {
+    notFound();
+  }
+
+  const messages = await getMessages();
+
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang={resolvedParams.locale} className="scroll-smooth">
       <body
         className={`${montserrat.variable} ${playfair.variable} antialiased`}
       >
-        {children}
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );
 }
+

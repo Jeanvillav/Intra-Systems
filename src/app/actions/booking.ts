@@ -116,6 +116,7 @@ export async function submitBooking(data: any) {
           phone: data.phone,
           question: data.question || null,
           meeting_time: data.meeting_time,
+          language: data.language || 'en',
           status: 'pending'
         }
       ])

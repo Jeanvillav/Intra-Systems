@@ -2,9 +2,17 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useTranslations } from 'next-intl';
+import { usePathname, useRouter } from '@/i18n/routing';
+import { useParams } from 'next/navigation';
 
 export default function StickyHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const t = useTranslations('StickyHeader');
+  const pathname = usePathname();
+  const router = useRouter();
+  const params = useParams();
+  const currentLocale = params.locale as string || 'en';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +28,11 @@ export default function StickyHeader() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const switchLocale = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const nextLocale = e.target.value;
+    router.replace(pathname, { locale: nextLocale });
+  };
+
   return (
     <div 
       className={`fixed top-0 left-0 w-full z-50 bg-[#091124] shadow-lg transition-transform duration-300 border-b border-white/10 ${
@@ -34,13 +47,23 @@ export default function StickyHeader() {
           </div>
         </div>
 
-        {/* CTA Button */}
-        <a 
-          href="#booking" 
-          className="bg-[#fdf354] text-[#091124] px-6 py-2 uppercase tracking-wider font-bold hover:bg-opacity-90 transition-colors text-sm rounded-sm"
-        >
-          MAKE AN APPOINTMENT
-        </a>
+        {/* Language Switcher and CTA Button */}
+        <div className="flex items-center gap-4">
+          <select 
+            value={currentLocale} 
+            onChange={switchLocale}
+            className="bg-transparent text-white border border-white/30 rounded px-2 py-1 text-sm focus:outline-none cursor-pointer"
+          >
+            <option value="en" className="text-black">🇺🇸 EN</option>
+            <option value="es" className="text-black">🇪🇸 ES</option>
+          </select>
+          <a 
+            href="#booking" 
+            className="bg-[#fdf354] text-[#091124] px-6 py-2 uppercase tracking-wider font-bold hover:bg-opacity-90 transition-colors text-sm rounded-sm"
+          >
+            {t('makeAppointment')}
+          </a>
+        </div>
       </div>
     </div>
   );

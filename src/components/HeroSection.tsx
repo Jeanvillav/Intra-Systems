@@ -1,15 +1,18 @@
+import { useTranslations } from 'next-intl';
+
 export default function HeroSection() {
+  const t = useTranslations('HeroSection');
   return (
     <section className="w-full bg-hero px-4 py-16 flex flex-col items-center text-center">
       <div className="max-w-4xl w-full">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold leading-relaxed md:leading-relaxed lg:leading-relaxed tracking-wide text-white uppercase">
-          HERE IS HOW WE GIVE YOU <span className="text-highlight">TOTAL CONTROL OF GINGIVAL MARGINS, FLUIDS, AND MOISTURE IN UNDER 1 MINUTE</span>, ALLOWING YOU TO ACHIEVE FAST DETAILED IMPRESSIONS AND FLAWLESS RESTORATIONS EVERY TIME, <span className="text-highlight">WITHOUT USING COMPLICATED, TIME-CONSUMING RETRACTION CORDS.</span>
+          {t('titlePrefix')} <span className="text-highlight">{t('titleHighlight1')}</span>{t('titleMiddle')}<span className="text-highlight">{t('titleHighlight2')}</span>
         </h1>
         
         <hr className="my-8 border-white/40 w-full" />
 
         <p className="mt-8 mb-12 text-xl md:text-2xl text-white uppercase tracking-wider font-serif">
-          (WITHOUT COMPLEX IMPLEMENTATIONS OR BREAKING THE BANK)
+          {t('subtitle')}
         </p>
 
         <div className="mb-12 relative w-full pt-[56.25%] bg-black border-2 border-white/20 rounded-lg shadow-2xl overflow-hidden">
@@ -24,7 +27,7 @@ export default function HeroSection() {
         </div>
 
         <a href="#booking" className="btn-primary">
-          MAKE AN APPOINTMENT
+          {t('makeAppointment')}
         </a>
       </div>
     </section>

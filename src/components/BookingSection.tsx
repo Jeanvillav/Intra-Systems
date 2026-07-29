@@ -25,7 +25,13 @@ type BookingFormData = z.infer<typeof bookingSchema>;
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
+import { useTranslations } from "next-intl";
+
+import { useParams } from 'next/navigation';
 export default function BookingSection() {
+  const t = useTranslations('BookingSection');
+  const params = useParams();
+  const currentLocale = (params?.locale as string) || 'en';
   const [isMounted, setIsMounted] = useState(false);
   const [date, setDate] = useState<Value>(null);
   const [availableSlots, setAvailableSlots] = useState<Date[]>([]);
@@ -107,6 +113,7 @@ export default function BookingSection() {
     const payload = {
       ...data,
       meeting_time: selectedSlot.toISOString(),
+      language: currentLocale,
     };
     
     console.log("Sending payload:", payload);
@@ -125,10 +132,10 @@ export default function BookingSection() {
     <section id="booking" className="w-full bg-[#f8fafc] px-4 py-24 flex flex-col items-center text-[#091124]">
       <div className="max-w-4xl w-full text-center">
         <h2 className="text-3xl md:text-5xl font-black text-[#091124] mb-4 tracking-tight">
-          Book Your Free Consultation!
+          {t('title')}
         </h2>
         <p className="text-xl md:text-2xl text-gray-700 mb-12">
-          Book your free consultation at your earliest convenience.
+          {t('subtitle')}
         </p>
 
         <div className="bg-white p-6 md:p-12 shadow-2xl rounded-2xl flex flex-col items-center">
@@ -137,7 +144,7 @@ export default function BookingSection() {
             <Image src="/logo.png" alt="Intra-Systems Logo" fill className="object-contain" />
           </div>
 
-          <h3 className="text-2xl font-bold mb-8">Pick a Date and Time</h3>
+          <h3 className="text-2xl font-bold mb-8">{t('selectTime')}</h3>
 
           <div className="flex flex-col md:flex-row gap-12 w-full justify-center">
             
@@ -155,7 +162,7 @@ export default function BookingSection() {
                     className="shadow-sm border border-gray-100 rounded-lg"
                   />
                   <p className="mt-4 text-sm text-gray-500 font-medium">
-                    Your Timezone: {userTimezone}
+                    {t('timezone')} {userTimezone}
                   </p>
                 </>
               ) : (
@@ -169,7 +176,7 @@ export default function BookingSection() {
             <div className="flex-1 w-full flex flex-col items-center md:items-start">
               {isMounted && date instanceof Date && availableSlots.length > 0 && !selectedSlot && (
                 <div className="w-full">
-                  <h4 className="font-bold mb-4">Select a Time</h4>
+                  <h4 className="font-bold mb-4">{t('selectTime')}</h4>
                   <div className="grid grid-cols-2 gap-3 w-full">
                     {availableSlots.map((slot, idx) => (
                       <button
@@ -188,17 +195,17 @@ export default function BookingSection() {
                 <form className="w-full text-left space-y-4" onSubmit={handleSubmit(onSubmit)}>
                   <div className="flex items-center justify-between bg-blue-50 p-4 rounded-lg border border-blue-100 mb-6">
                     <div>
-                      <p className="text-sm text-gray-500 font-bold">Selected Time</p>
+                      <p className="text-sm text-gray-500 font-bold">{t('selectedTime')}</p>
                       <p className="font-bold text-blue-700">
                         {selectedSlot.toLocaleDateString()} at {selectedSlot.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </p>
                     </div>
-                    <button type="button" onClick={() => setSelectedSlot(null)} className="text-sm underline text-blue-600 font-bold">Change</button>
+                    <button type="button" onClick={() => setSelectedSlot(null)} className="text-sm underline text-blue-600 font-bold">{t('change')}</button>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">First Name *</label>
+                      <label className="block text-sm font-bold text-gray-700 mb-1">{t('firstName')}</label>
                       <input 
                         {...register("firstName")}
                         className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" 
@@ -207,7 +214,7 @@ export default function BookingSection() {
                       {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName.message}</p>}
                     </div>
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">Last Name *</label>
+                      <label className="block text-sm font-bold text-gray-700 mb-1">{t('lastName')}</label>
                       <input 
                         {...register("lastName")}
                         className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" 
@@ -218,7 +225,7 @@ export default function BookingSection() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-1">Email *</label>
+                    <label className="block text-sm font-bold text-gray-700 mb-1">{t('email')}</label>
                     <input 
                       {...register("email")}
                       type="email"
@@ -229,7 +236,7 @@ export default function BookingSection() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-1">Phone Number *</label>
+                    <label className="block text-sm font-bold text-gray-700 mb-1">{t('phone')}</label>
                     <Controller
                       name="phone"
                       control={control}
@@ -256,7 +263,7 @@ export default function BookingSection() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-1">Any questions before our call?</label>
+                    <label className="block text-sm font-bold text-gray-700 mb-1">{t('question')}</label>
                     <textarea 
                       {...register("question")}
                       rows={3} 
@@ -266,7 +273,7 @@ export default function BookingSection() {
 
                   {submitMessage && (
                     <div className={`p-4 rounded-lg font-bold text-center ${submitMessage.type === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-                      {submitMessage.text}
+                      {submitMessage.type === "success" ? t('successMessage') : submitMessage.text}
                     </div>
                   )}
 
@@ -275,18 +282,17 @@ export default function BookingSection() {
                     disabled={isSubmitting || submitMessage?.type === "success"}
                     className="w-full bg-blue-600 text-white font-bold py-4 rounded-lg hover:bg-blue-700 transition-colors mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isSubmitting ? "PROCESSING..." : (submitMessage?.type === "success" ? "BOOKED!" : "CONFIRM BOOKING")}
+                    {isSubmitting ? t('bookingLoading') : (submitMessage?.type === "success" ? "BOOKED!" : t('bookingButton'))}
                   </button>
                 </form>
               )}
 
               {isMounted && !(date instanceof Date) && (
                 <div className="h-full flex items-center justify-center text-gray-400 font-medium text-center">
-                  Please select a date on the calendar to see available times.
+                  {t('selectDate')}
                 </div>
               )}
             </div>
-
           </div>
         </div>
       </div>

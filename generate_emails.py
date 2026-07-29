@@ -1,4 +1,18 @@
-export type BookingData = {
+import re
+
+with open('src/lib/emailTemplates.ts', 'r') as f:
+    code = f.read()
+
+# Add language field to BookingData
+code = code.replace(
+    "export type BookingData = {",
+    "export type BookingData = {\n  language?: string;"
+)
+
+# We can define a dictionary for translations inside emailTemplates.ts or just inline them.
+# Let's write the whole file since it's not too big.
+
+new_code = """export type BookingData = {
   id: string;
   first_name: string;
   email: string;
@@ -554,3 +568,7 @@ export function getNoSaleEmail3(booking: BookingData) {
 
   return { subject, html: isEs ? htmlEs : htmlEn };
 }
+"""
+
+with open('src/lib/emailTemplates.ts', 'w') as f:
+    f.write(new_code)

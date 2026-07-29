@@ -1,38 +1,46 @@
+import React from "react";
 import Image from "next/image";
+import { useTranslations } from 'next-intl';
 
 export default function TestimonialsSection() {
+  const t = useTranslations('TestimonialsSection');
   return (
-    <section className="w-full bg-white px-4 py-16 flex flex-col items-center text-[#091124]">
-      <h2 className="text-sm font-bold uppercase tracking-widest text-gray-500 mb-2">TESTIMONIALS</h2>
-      <h3 className="text-3xl font-bold uppercase mb-16">OUR CLIENT REVIEWS</h3>
+    <section className="w-full bg-[#141B4D] px-4 py-20 flex flex-col items-center">
+      <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-wide text-white mb-16 text-center">
+        {t('title')}
+      </h2>
 
-      <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8">
         
         {/* Testimonial 1 */}
-        <div className="bg-gray-50 p-8 flex flex-col shadow-sm border border-gray-100">
-          <p className="italic text-lg text-gray-700 flex-grow mb-12">
-            "Everything is great, I have used it a few times and I have to say I am really impresed. The quality and performance have exceeded my expectations, and it's been a pleasure to use. It’s reliable, easy to use, and definitely worth it. I am very happy with it."
-          </p>
-          <div className="mt-auto">
-            <div className="w-24 h-12 mb-4 relative">
-              <Image src="/testimonial_logo.png" alt="3 Dental Dublin Logo" fill className="object-contain object-left" />
+        <div className="bg-white rounded-xl p-8 shadow-xl flex flex-col relative pt-12 mt-8">
+          <div className="absolute -top-10 left-8">
+            <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-white shadow-md">
+              <Image src="/doc1.jpeg" alt="Dr. Ruxandra" fill className="object-cover" />
             </div>
-            <p className="font-bold uppercase tracking-wide">Dr. Ruxandra.</p>
-            <p className="uppercase tracking-wide">3 Dental Dublin.</p>
+          </div>
+          <p className="text-gray-700 italic leading-relaxed flex-grow">
+            "{t('t1')}"
+          </p>
+          <div className="mt-6 flex flex-col items-end border-t border-gray-100 pt-4">
+            <h4 className="font-bold text-[#141B4D] text-lg">{t('author1')}</h4>
+            <p className="text-sm text-gray-500">{t('clinic1')}</p>
           </div>
         </div>
 
         {/* Testimonial 2 */}
-        <div className="bg-gray-50 p-8 flex flex-col shadow-sm border border-gray-100">
-          <p className="italic text-lg text-gray-700 flex-grow mb-12">
-            "I have been using the laser and it is performing just as I hoped. It’s been reliable, smooth, and overall a great experience. Looking forward to more results with continued use."
-          </p>
-          <div className="mt-auto">
-            <div className="w-24 h-12 mb-4 relative">
-              <Image src="/testimonial_logo.png" alt="Chapel House Dentistry Logo" fill className="object-contain object-left" />
+        <div className="bg-white rounded-xl p-8 shadow-xl flex flex-col relative pt-12 mt-8">
+          <div className="absolute -top-10 left-8">
+            <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-white shadow-md">
+              <Image src="/doc2.jpeg" alt="Dr. Brent" fill className="object-cover" />
             </div>
-            <p className="font-bold uppercase tracking-wide">Dr. Brent.</p>
-            <p className="uppercase tracking-wide">Chapel House Dentistry.</p>
+          </div>
+          <p className="text-gray-700 italic leading-relaxed flex-grow">
+            "{t('t2')}"
+          </p>
+          <div className="mt-6 flex flex-col items-end border-t border-gray-100 pt-4">
+            <h4 className="font-bold text-[#141B4D] text-lg">{t('author2')}</h4>
+            <p className="text-sm text-gray-500">{t('clinic2')}</p>
           </div>
         </div>
 
