@@ -1,8 +1,11 @@
 import Image from "next/image";
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 export default function LetterSection() {
   const t = useTranslations('LetterSection');
+  const locale = useLocale();
+  const diagramSrc = locale === 'es' ? '/DiagramaES.png' : '/DiagramaEN.jpeg';
+
   return (
     <section className="w-full bg-[var(--color-accent-green)] px-4 py-16 flex flex-col items-center text-[#091124]">
       <div className="max-w-3xl w-full text-center">
@@ -47,6 +50,18 @@ export default function LetterSection() {
           <p className="font-bold text-2xl uppercase text-center pt-8 tracking-widest">
             {t('difference')}
           </p>
+
+          {/* Diagram embedded here */}
+          <div className="w-full flex justify-center py-8">
+            <Image 
+              src={diagramSrc}
+              alt="Process Diagram"
+              width={1200}
+              height={800}
+              className="w-full h-auto object-contain rounded-lg shadow-xl"
+              sizes="(max-width: 1200px) 100vw, 1200px"
+            />
+          </div>
 
           <div className="bg-[#141B4D] text-white p-8 mt-12 text-center rounded-lg space-y-6">
             <h3 className="text-xl md:text-2xl font-bold uppercase leading-relaxed text-[#fdf354]" dangerouslySetInnerHTML={{__html: t('ctaTitle')}}></h3>
