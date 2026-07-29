@@ -54,7 +54,7 @@ export default function StickyHeader() {
             onChange={switchLocale}
             className="bg-transparent text-white border border-white/30 rounded px-2 py-1 text-sm focus:outline-none cursor-pointer"
           >
-            <option value="en" className="text-black">🇺🇸 EN</option>
+            <option value="en" className="text-black">🇬🇧 EN</option>
             <option value="es" className="text-black">🇪🇸 ES</option>
           </select>
           <a 

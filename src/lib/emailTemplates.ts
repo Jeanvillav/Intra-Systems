@@ -62,7 +62,13 @@ export function getBookedEmail1(booking: BookingData) {
         <p>If you have questions or need to adjust the appointment, feel free to reach out to us.</p>
         <p>We look forward to a productive and inspiring conversation on <strong>${date}</strong> at <strong>${time}</strong>.</p>
         <br/>
-        <p><strong>Meeting Location:</strong> <a href="${booking.zoom_link}">Join via Zoom</a></p>
+        
+        <div style="text-align: center; margin: 30px 0; padding: 20px; background-color: #f8f9fa; border: 2px solid #141b4d; border-radius: 8px;">
+          <h3 style="margin-top: 0; color: #141b4d; font-size: 20px;">Your Meeting Link</h3>
+          <p style="margin-bottom: 20px; color: #333;">Click the button below at the time of your appointment to join the call:</p>
+          <a href="${booking.zoom_link}" style="background-color: #fdf354; color: #141b4d; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px; display: inline-block;">JOIN ZOOM MEETING</a>
+        </div>
+
         <p><strong>Reschedule Link:</strong> <a href="${reschedule}">Click here to reschedule</a></p>
         <br/>
         <p>Best regards,</p>
@@ -90,7 +96,13 @@ export function getBookedEmail1(booking: BookingData) {
         <p>Si tienes preguntas o necesitas ajustar la cita, no dudes en contactarnos.</p>
         <p>Esperamos una conversación productiva e inspiradora el <strong>${date}</strong> a las <strong>${time}</strong>.</p>
         <br/>
-        <p><strong>Ubicación de la reunión:</strong> <a href="${booking.zoom_link}">Unirse vía Zoom</a></p>
+        
+        <div style="text-align: center; margin: 30px 0; padding: 20px; background-color: #f8f9fa; border: 2px solid #141b4d; border-radius: 8px;">
+          <h3 style="margin-top: 0; color: #141b4d; font-size: 20px;">Enlace de la Reunión</h3>
+          <p style="margin-bottom: 20px; color: #333;">Haz clic en el botón de abajo a la hora de tu cita para unirte a la llamada:</p>
+          <a href="${booking.zoom_link}" style="background-color: #fdf354; color: #141b4d; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px; display: inline-block;">UNIRSE A LA REUNIÓN DE ZOOM</a>
+        </div>
+
         <p><strong>Enlace para reprogramar:</strong> <a href="${reschedule}">Haz clic aquí para reprogramar</a></p>
         <br/>
         <p>Atentamente,</p>
@@ -568,7 +580,13 @@ export function get30MinReminderEmail(booking: BookingData) {
         <p>I trust this email finds you in good health. It's just a quick note to inform you that we are only 30 minutes away from your scheduled appointment on ${date} at ${time}.</p>
         <p>The moment for transformative change is upon us, and I'm excited about the positive shifts that await you.</p>
         <p>Get ready to embark on this journey towards positive transformation. Your commitment to this appointment is a crucial step toward achieving the results you desire.</p>
-        <p><strong>Meeting Location:</strong> <a href="${booking.zoom_link}">${booking.zoom_link}</a></p>
+        
+        <div style="text-align: center; margin: 30px 0; padding: 20px; background-color: #f8f9fa; border: 2px solid #141b4d; border-radius: 8px;">
+          <h3 style="margin-top: 0; color: #141b4d; font-size: 20px;">Join Your Meeting Now</h3>
+          <p style="margin-bottom: 20px; color: #333;">We are starting soon! Click the button below to join the call:</p>
+          <a href="${booking.zoom_link}" style="background-color: #fdf354; color: #141b4d; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px; display: inline-block;">JOIN ZOOM MEETING</a>
+        </div>
+
         <br/>
         <p>If you need to reschedule, you can do so here:</p>
         <p><a href="${reschedule}">Reschedule Link</a></p>
@@ -583,7 +601,13 @@ export function get30MinReminderEmail(booking: BookingData) {
         <p>Espero que este correo te encuentre bien. Es solo una nota rápida para informarte que estamos a solo 30 minutos de tu cita programada el ${date} a las ${time}.</p>
         <p>El momento del cambio transformador está sobre nosotros, y estoy emocionado por los cambios positivos que te esperan.</p>
         <p>Prepárate para embarcarte en este viaje hacia la transformación positiva. Tu compromiso con esta cita es un paso crucial para lograr los resultados que deseas.</p>
-        <p><strong>Ubicación de la reunión:</strong> <a href="${booking.zoom_link}">${booking.zoom_link}</a></p>
+        
+        <div style="text-align: center; margin: 30px 0; padding: 20px; background-color: #f8f9fa; border: 2px solid #141b4d; border-radius: 8px;">
+          <h3 style="margin-top: 0; color: #141b4d; font-size: 20px;">Únete a tu reunión ahora</h3>
+          <p style="margin-bottom: 20px; color: #333;">¡Comenzamos pronto! Haz clic en el botón de abajo para unirte a la llamada:</p>
+          <a href="${booking.zoom_link}" style="background-color: #fdf354; color: #141b4d; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px; display: inline-block;">UNIRSE A LA REUNIÓN DE ZOOM</a>
+        </div>
+
         <br/>
         <p>Si necesitas reprogramar, puedes hacerlo aquí:</p>
         <p><a href="${reschedule}">Enlace para reprogramar</a></p>
