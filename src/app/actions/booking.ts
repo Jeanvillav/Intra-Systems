@@ -158,7 +158,8 @@ export async function submitBooking(data: any) {
           first_name: data.firstName,
           email: data.email,
           meeting_time: data.meeting_time,
-          zoom_link: zoomLink
+          zoom_link: zoomLink,
+          language: data.language || 'en'
         };
 
         const emailTemplate = getBookedEmail1(bookingData);
