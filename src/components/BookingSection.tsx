@@ -19,7 +19,7 @@ const bookingSchema = z.object({
   phone: z.string().min(10, "Please enter a valid phone number"),
   question: z.string().min(2, "This field is required"),
   termsAccepted: z.literal(true, {
-    errorMap: () => ({ message: "You must accept the terms and conditions" }),
+    message: "You must accept the terms and conditions",
   }),
 });
 
