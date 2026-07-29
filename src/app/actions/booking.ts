@@ -374,7 +374,7 @@ async function sendRescheduleSequence(bookingData: any) {
     await transporter.sendMail({
       from: `"Intra-Systems" <${process.env.GMAIL_USER}>`,
       to: bookingData.email,
-      subject: "Rescheduled: " + emailData.subject,
+      subject: (bookingData.language === 'es' ? "Reprogramado: " : "Rescheduled: ") + emailData.subject,
       html: emailData.html,
     });
     

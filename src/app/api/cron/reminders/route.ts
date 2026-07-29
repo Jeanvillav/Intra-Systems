@@ -8,7 +8,8 @@ import {
   getNoSaleEmail2,
   getNoSaleEmail3,
   getNoShowEmail2,
-  getNoShowEmail3
+  getNoShowEmail3,
+  get30MinReminderEmail
 } from "@/lib/emailTemplates";
 
 const transporter = nodemailer.createTransport({
@@ -53,29 +54,13 @@ export async function POST(request: Request) {
 
     if (upcomingBookings && upcomingBookings.length > 0) {
       for (const booking of upcomingBookings) {
-        const dateStr = new Date(booking.meeting_time).toLocaleString("en-GB", {
-          timeZone: "America/Guayaquil",
-          dateStyle: "full",
-          timeStyle: "short",
-        });
+        const emailData = get30MinReminderEmail(booking);
 
         await transporter.sendMail({
           from: `"Intra-Systems" <${process.env.GMAIL_USER}>`,
           to: booking.email,
-          subject: "Starting in 30 Minutes!",
-          html: `
-            <h2>Hi ${booking.first_name},</h2>
-            <p>I trust this email finds you in good health. It's just a quick note to inform you that we are only 30 minutes away from your scheduled appointment on ${dateStr}.</p>
-            <p>The moment for transformative change is upon us, and I'm excited about the positive shifts that await you.</p>
-            <p>Get ready to embark on this journey towards positive transformation. Your commitment to this appointment is a crucial step toward achieving the results you desire.</p>
-            <p><strong>Meeting Location:</strong> <a href="${booking.zoom_link}">${booking.zoom_link}</a></p>
-            <br/>
-            <p>If you need to reschedule, you can do so here:</p>
-            <p><a href="${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/booking/edit?id=${booking.id}">Reschedule Link</a></p>
-            <br/>
-            <p>Best regards,</p>
-            <p><strong>Kevin Easter</strong><br/>Director INTRA Systems</p>
-          `,
+          subject: emailData.subject,
+          html: emailData.html,
         });
 
         await supabase
