@@ -4,56 +4,81 @@ export default function SmarterSolutionSection() {
   const t = useTranslations();
 
   return (
-    <section className="bg-[#141B4D] py-16 px-4">
-      <div className="max-w-6xl mx-auto flex flex-col items-center text-center">
+    <section className="bg-[#F9F9F9] py-20 px-4 border-t border-b border-gray-200">
+      <div className="max-w-4xl mx-auto flex flex-col items-center">
         
-        {/* Headline */}
-        <h2 className="font-['Aboreto'] text-[#FAF089] text-3xl md:text-5xl uppercase font-bold max-w-4xl leading-tight mb-16">
-          {t('smSmarterHeadline')}
+        {/* Main Headline */}
+        <h2 className="font-['Aboreto'] text-[#141B4D] text-3xl md:text-5xl uppercase font-bold text-center leading-tight mb-16 max-w-3xl">
+          {t('smHeadline')}
         </h2>
 
-        {/* 3 Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center max-w-5xl w-full">
+        {/* 3 Rows (Left-aligned Checkmarks) */}
+        <div className="w-full space-y-12">
           
-          {/* Column 1 */}
-          <div className="flex flex-col items-center">
-            <h3 className="text-white font-['Aboreto'] font-bold text-xl uppercase mb-4 tracking-wide border-b border-white pb-2">
-              {t('smTitle1')}
-            </h3>
-            <p className="text-white leading-relaxed text-lg px-2">
-              {t('smDesc1')}
-            </p>
+          {/* Row 1 */}
+          <div className="flex items-start">
+            <div className="flex-shrink-0 bg-white p-4 rounded shadow-sm mr-6">
+              <div className="bg-[#DDE9CD] rounded-full p-2 w-12 h-12 flex items-center justify-center">
+                <i className="fas fa-check text-[#141B4D] text-2xl font-bold"></i>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-[#141B4D] font-bold text-xl md:text-2xl mb-2">
+                {t('smTitle1')}
+              </h3>
+              <p className="text-[#141B4D] text-lg opacity-80">
+                {t('smDesc1')}
+              </p>
+            </div>
           </div>
 
-          {/* Column 2 */}
-          <div className="flex flex-col items-center">
-            <h3 className="text-white font-['Aboreto'] font-bold text-xl uppercase mb-4 tracking-wide border-b border-white pb-2">
-              {t('smTitle2')}
-            </h3>
-            <p className="text-white leading-relaxed text-lg px-2">
-              {t('smDesc2')}
-            </p>
+          {/* Row 2 */}
+          <div className="flex items-start">
+            <div className="flex-shrink-0 bg-white p-4 rounded shadow-sm mr-6">
+              <div className="bg-[#DDE9CD] rounded-full p-2 w-12 h-12 flex items-center justify-center">
+                <i className="fas fa-check text-[#141B4D] text-2xl font-bold"></i>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-[#141B4D] font-bold text-xl md:text-2xl mb-2">
+                {t('smTitle2')}
+              </h3>
+              <p className="text-[#141B4D] text-lg opacity-80">
+                {t('smDesc2')}
+              </p>
+            </div>
           </div>
 
-          {/* Column 3 */}
-          <div className="flex flex-col items-center">
-            <h3 className="text-white font-['Aboreto'] font-bold text-xl uppercase mb-4 tracking-wide border-b border-white pb-2">
-              {t('smTitle3')}
-            </h3>
-            <p className="text-white leading-relaxed text-lg px-2">
-              {t('smDesc3')}
-            </p>
+          {/* Row 3 */}
+          <div className="flex items-start">
+            <div className="flex-shrink-0 bg-white p-4 rounded shadow-sm mr-6">
+              <div className="bg-[#DDE9CD] rounded-full p-2 w-12 h-12 flex items-center justify-center">
+                <i className="fas fa-check text-[#141B4D] text-2xl font-bold"></i>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-[#141B4D] font-bold text-xl md:text-2xl mb-2">
+                {t('smTitle3')}
+              </h3>
+              <p className="text-[#141B4D] text-lg opacity-80">
+                {t('smDesc3')}
+              </p>
+            </div>
           </div>
 
         </div>
 
-        <div className="mt-16 text-center">
-          <p className="text-white font-['Aboreto'] uppercase text-xl md:text-2xl mb-8">
+        {/* Call to action */}
+        <div className="mt-20 text-center">
+          <p className="text-[#141B4D] font-['Aboreto'] uppercase text-xl md:text-2xl mb-6">
             {t('smReadyText')}
+          </p>
+          <p className="text-[#141B4D] uppercase text-xl mb-10 tracking-widest font-bold">
+            BOOK A CALL WITH ME OR MY TEAM
           </p>
           <a 
             href="#booking"
-            className="border border-[#DDE9CD] text-white font-['Aboreto'] font-bold uppercase tracking-wider px-10 py-5 hover:bg-white hover:text-[#141B4D] transition-colors duration-300 shadow-md inline-block"
+            className="border border-[#141B4D] text-[#141B4D] font-['Aboreto'] font-bold uppercase tracking-wider px-10 py-5 hover:bg-[#141B4D] hover:text-white transition-colors duration-300 shadow-sm inline-block rounded"
           >
             {t('makeAppointment')}
           </a>
