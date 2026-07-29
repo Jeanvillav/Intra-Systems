@@ -285,3 +285,53 @@ export function getNoShowEmail3(booking: BookingData) {
     `
   };
 }
+
+export function getCancelledEmail3(booking: BookingData) {
+  const { reschedule } = getLinks(booking.id);
+
+  return {
+    subject: "A Second Chance?",
+    html: `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333; line-height: 1.6;">
+        <p>Hi ${booking.first_name},</p>
+        <p>We hope this message finds you well.</p>
+        <p>We understand that plans can change, and we want you to know it's not a problem at all.</p>
+        <p>Life happens, and we're here to make things easier for you.</p>
+        <p>To help you stand out from the crowd and achieve the results you desire, we're extending a special opportunity just for you.</p>
+        <p>Whether it's a second chance or a fresh start, we believe in your potential and want to support your journey.</p>
+        <p>Rebooking your appointment is the next step toward unlocking this exclusive opportunity.</p>
+        <br/>
+        <p><strong>Click the link below to secure your spot:</strong> <a href="${reschedule}">${reschedule}</a></p>
+        <br/>
+        <p>If you have any questions or specific concerns, we're here to address them.</p>
+        <p>Your success is our priority, and we're excited about the possibility of working together.</p>
+        <p>Thank you for considering this unique opportunity. We look forward to seeing you soon.</p>
+        <br/>
+        <p>Best regards,</p>
+        <p><strong>Kevin Easter</strong><br/>Director INTRA Systems LTD</p>
+      </div>
+    `
+  };
+}
+
+export function getNoSaleEmail3(booking: BookingData) {
+  return {
+    subject: "Another Relevant Success Story",
+    html: `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333; line-height: 1.6;">
+        <p>Dear ${booking.first_name},</p>
+        <p>I trust this message finds you reflecting on our recent conversation. Your practice challenges are unique, and I wanted to share a relevant success story that might resonate with your situation.</p>
+        <p>Attached is a compelling case study featuring a client who faced similar hurdles. Despite the differences, their journey could offer valuable insights into potential strategies for your own dental practice.</p>
+        <p>I invite you to review the case study and consider the possibilities. If there's any aspect you'd like to discuss further, or if you have new thoughts after our recent conversation, I'm here and ready to engage.</p>
+        <p>Thank you for your openness, and I look forward to the opportunity of continued dialogue.</p>
+        <br/>
+        <a href="https://youtu.be/mybPVnCQoUY" target="_blank">
+          <img src="https://img.youtube.com/vi/mybPVnCQoUY/maxresdefault.jpg" alt="Case Study Video" style="width: 100%; border-radius: 8px; margin: 20px 0;" />
+        </a>
+        <br/>
+        <p>Best regards,</p>
+        <p><strong>Kevin Easter</strong><br/>Director INTRA Systems LTD</p>
+      </div>
+    `
+  };
+}
