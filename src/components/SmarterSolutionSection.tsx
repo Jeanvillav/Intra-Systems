@@ -9,7 +9,7 @@ export default function SmarterSolutionSection() {
         
         {/* Main Headline */}
         <h2 className="font-['Aboreto'] text-[#141B4D] text-3xl md:text-5xl uppercase font-bold text-center leading-tight mb-16 max-w-3xl">
-          {t('smHeadline')}
+          {t('smSmarterHeadline')}
         </h2>
 
         {/* 3 Rows (Left-aligned Checkmarks) */}
@@ -19,7 +19,7 @@ export default function SmarterSolutionSection() {
           <div className="flex items-start">
             <div className="flex-shrink-0 bg-white p-4 rounded shadow-sm mr-6">
               <div className="bg-[#DDE9CD] rounded-full p-2 w-12 h-12 flex items-center justify-center">
-                <i className="fas fa-check text-[#141B4D] text-2xl font-bold"></i>
+                <svg className="w-6 h-6 text-[#141B4D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
               </div>
             </div>
             <div>
@@ -36,7 +36,7 @@ export default function SmarterSolutionSection() {
           <div className="flex items-start">
             <div className="flex-shrink-0 bg-white p-4 rounded shadow-sm mr-6">
               <div className="bg-[#DDE9CD] rounded-full p-2 w-12 h-12 flex items-center justify-center">
-                <i className="fas fa-check text-[#141B4D] text-2xl font-bold"></i>
+                <svg className="w-6 h-6 text-[#141B4D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
               </div>
             </div>
             <div>
@@ -53,7 +53,7 @@ export default function SmarterSolutionSection() {
           <div className="flex items-start">
             <div className="flex-shrink-0 bg-white p-4 rounded shadow-sm mr-6">
               <div className="bg-[#DDE9CD] rounded-full p-2 w-12 h-12 flex items-center justify-center">
-                <i className="fas fa-check text-[#141B4D] text-2xl font-bold"></i>
+                <svg className="w-6 h-6 text-[#141B4D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
               </div>
             </div>
             <div>

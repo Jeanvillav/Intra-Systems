@@ -17,8 +17,10 @@ export default function PracticeGrowthSection() {
           
           {/* Column 1 - White Card */}
           <div className="flex flex-col bg-white p-8 md:p-10 rounded-xl shadow-lg border border-gray-100">
-            <div className="text-[#141B4D] text-4xl mb-6">
-              <i className="fas fa-list-ul bg-[#141B4D] text-white p-3 rounded-md text-2xl"></i>
+            <div className="text-[#141B4D] mb-6">
+              <div className="bg-[#141B4D] text-white p-3 rounded-md inline-block">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+              </div>
             </div>
             <h3 className="text-[#141B4D] font-['Aboreto'] font-bold text-xl uppercase mb-4 tracking-wide">
               {t('pgTitle1')}
@@ -30,8 +32,8 @@ export default function PracticeGrowthSection() {
 
           {/* Column 2 - Green Card */}
           <div className="flex flex-col bg-[#DDE9CD] p-8 md:p-10 rounded-xl shadow-lg border border-transparent">
-            <div className="text-[#141B4D] text-4xl mb-6 flex items-center">
-              <i className="fas fa-user-shield text-5xl"></i>
+            <div className="text-[#141B4D] mb-6 flex items-center">
+              <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
             </div>
             <h3 className="text-[#141B4D] font-['Aboreto'] font-bold text-xl uppercase mb-4 tracking-wide">
               {t('pgTitle2')}
@@ -43,8 +45,8 @@ export default function PracticeGrowthSection() {
 
           {/* Column 3 - Light Gray Card */}
           <div className="flex flex-col bg-[#F9F9F9] p-8 md:p-10 rounded-xl shadow-lg border border-gray-50">
-            <div className="text-[#141B4D] text-4xl mb-6 flex items-center">
-              <i className="fas fa-bullseye text-5xl"></i>
+            <div className="text-[#141B4D] mb-6 flex items-center">
+              <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
             </div>
             <h3 className="text-[#141B4D] font-['Aboreto'] font-bold text-xl uppercase mb-4 tracking-wide">
               {t('pgTitle3')}
