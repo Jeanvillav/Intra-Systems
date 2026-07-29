@@ -15,7 +15,7 @@ export default function TestimonialsSection() {
           </p>
           <div className="mt-auto">
             <div className="w-24 h-12 mb-4 relative">
-              <Image src="/Logo.jpeg" alt="3 Dental Dublin Logo" fill className="object-contain object-left" />
+              <Image src="/testimonial_logo.png" alt="3 Dental Dublin Logo" fill className="object-contain object-left" />
             </div>
             <p className="font-bold uppercase tracking-wide">Dr. Ruxandra.</p>
             <p className="uppercase tracking-wide">3 Dental Dublin.</p>
@@ -28,9 +28,8 @@ export default function TestimonialsSection() {
             "I have been using the laser and it is performing just as I hoped. It’s been reliable, smooth, and overall a great experience. Looking forward to more results with continued use."
           </p>
           <div className="mt-auto">
-            <div className="w-12 h-12 mb-4 text-yellow-500">
-              {/* Logo Placeholder */}
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8"><path d="M12 2L2 12l10 10 10-10L12 2zm0 3.5l6.5 6.5-6.5 6.5-6.5-6.5L12 5.5z"/></svg>
+            <div className="w-24 h-12 mb-4 relative">
+              <Image src="/testimonial_logo.png" alt="Chapel House Dentistry Logo" fill className="object-contain object-left" />
             </div>
             <p className="font-bold uppercase tracking-wide">Dr. Brent.</p>
             <p className="uppercase tracking-wide">Chapel House Dentistry.</p>
