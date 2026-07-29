@@ -1,6 +1,8 @@
 import StickyHeader from "@/components/StickyHeader";
 import HeroSection from "@/components/HeroSection";
-import PillarsSection from "@/components/PillarsSection";
+import PracticeGrowthSection from "@/components/PracticeGrowthSection";
+import SmarterSolutionSection from "@/components/SmarterSolutionSection";
+import ComparisonSection from "@/components/ComparisonSection";
 import LetterSection from "@/components/LetterSection";
 import AboutSection from "@/components/AboutSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -12,7 +14,9 @@ export default function Home() {
     <main className="min-h-screen bg-[var(--background)] flex flex-col items-center w-full">
       <StickyHeader />
       <HeroSection />
-      <PillarsSection />
+      <PracticeGrowthSection />
+      <SmarterSolutionSection />
+      <ComparisonSection />
       <LetterSection />
       <AboutSection />
       <TestimonialsSection />

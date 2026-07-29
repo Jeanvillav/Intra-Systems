@@ -2,8 +2,15 @@ import { useTranslations } from 'next-intl';
 
 export default function HeroSection() {
   const t = useTranslations('HeroSection');
+  const tGlobal = useTranslations();
+
+  const scrollToBooking = (e: React.MouseEvent) => {
+    e.preventDefault();
+    document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <section className="w-full bg-hero px-4 pt-28 pb-16 flex flex-col items-center text-center">
+    <section className="w-full bg-[#141B4D] px-4 pt-28 pb-16 flex flex-col items-center text-center">
       <div className="max-w-4xl w-full">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold leading-relaxed md:leading-relaxed lg:leading-relaxed tracking-wide text-white uppercase">
           {t('titlePrefix')} <span className="text-highlight">{t('titleHighlight1')}</span>{t('titleMiddle')}<span className="text-highlight">{t('titleHighlight2')}</span>
@@ -26,9 +33,12 @@ export default function HeroSection() {
           ></iframe>
         </div>
 
-        <a href="#booking" className="btn-primary">
-          {t('makeAppointment')}
-        </a>
+        <button 
+          onClick={scrollToBooking}
+          className="border border-white text-white bg-transparent font-['Aboreto'] font-bold uppercase tracking-wider px-10 py-5 hover:bg-white hover:text-[#141B4D] transition-colors duration-300 shadow-md"
+        >
+          {tGlobal('makeAppointment')}
+        </button>
       </div>
     </section>
   );
