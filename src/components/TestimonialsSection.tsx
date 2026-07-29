@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function TestimonialsSection() {
   return (
     <section className="w-full bg-white px-4 py-16 flex flex-col items-center text-[#091124]">
@@ -12,9 +14,8 @@ export default function TestimonialsSection() {
             "Everything is great, I have used it a few times and I have to say I am really impresed. The quality and performance have exceeded my expectations, and it's been a pleasure to use. It’s reliable, easy to use, and definitely worth it. I am very happy with it."
           </p>
           <div className="mt-auto">
-            <div className="w-12 h-12 mb-4 text-yellow-500">
-              {/* Logo Placeholder */}
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8"><path d="M12 2L2 12l10 10 10-10L12 2zm0 3.5l6.5 6.5-6.5 6.5-6.5-6.5L12 5.5z"/></svg>
+            <div className="w-24 h-12 mb-4 relative">
+              <Image src="/Logo.jpeg" alt="3 Dental Dublin Logo" fill className="object-contain object-left" />
             </div>
             <p className="font-bold uppercase tracking-wide">Dr. Ruxandra.</p>
             <p className="uppercase tracking-wide">3 Dental Dublin.</p>

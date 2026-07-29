@@ -53,16 +53,16 @@ export default function LetterSection() {
           </p>
 
           <div className="bg-[#141B4D] text-white p-8 mt-12 text-center rounded-lg space-y-6">
-            <h3 className="text-xl md:text-2xl font-bold uppercase leading-relaxed text-yellow-400">
+            <h3 className="text-xl md:text-2xl font-bold uppercase leading-relaxed text-[#fdf354]">
               IF YOU ARE INTERESTED TO LEARN MORE ABOUT SOFT TISSUE LASERS...<br/>BOOK A CALL WITH ME OR MY TEAM.
             </h3>
             <p className="text-lg">We will explain exactly how this approach would work for your dental practice.</p>
             <p className="text-lg">This call is not a hard sell.<br/>It's simply giving you the information you need to either say:<br/>Yes... or No.</p>
             <p className="text-lg font-bold">Click the button below.<br/>Book a time and date that works for you.</p>
-            <p className="text-xl font-bold uppercase text-yellow-400">Talk soon!</p>
+            <p className="text-xl font-bold uppercase text-[#fdf354]">Talk soon!</p>
             
             <div className="pt-6">
-              <a href="#booking" className="bg-yellow-400 text-[#141B4D] border-2 border-yellow-400 px-8 py-4 uppercase tracking-wider font-bold hover:bg-transparent hover:text-yellow-400 transition-all duration-300 inline-block cursor-pointer">
+              <a href="#booking" className="bg-[#fdf354] text-[#141B4D] border-2 border-[#fdf354] px-8 py-4 uppercase tracking-wider font-bold hover:bg-transparent hover:text-[#fdf354] transition-all duration-300 inline-block cursor-pointer">
                 MAKE AN APPOINTMENT
               </a>
             </div>

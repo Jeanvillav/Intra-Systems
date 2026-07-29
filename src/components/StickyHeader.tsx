@@ -37,7 +37,7 @@ export default function StickyHeader() {
         {/* CTA Button */}
         <a 
           href="#booking" 
-          className="bg-yellow-400 text-[#091124] px-6 py-2 uppercase tracking-wider font-bold hover:bg-yellow-300 transition-colors text-sm rounded-sm"
+          className="bg-[#fdf354] text-[#091124] px-6 py-2 uppercase tracking-wider font-bold hover:bg-opacity-90 transition-colors text-sm rounded-sm"
         >
           MAKE AN APPOINTMENT
         </a>

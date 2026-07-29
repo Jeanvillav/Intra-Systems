@@ -38,7 +38,7 @@ body {
 }
 
 .btn-primary {
-  @apply border border-white bg-transparent text-white px-10 py-4 uppercase tracking-widest transition-all duration-300 font-bold hover:bg-white hover:text-[#091124] inline-block text-center cursor-pointer font-serif;
+  @apply border border-[var(--color-accent-yellow)] bg-transparent text-[var(--color-accent-yellow)] px-10 py-4 uppercase tracking-widest transition-all duration-300 font-bold hover:bg-[var(--color-accent-yellow)] hover:text-[#091124] inline-block text-center cursor-pointer font-serif;
 }
 
 /* React Calendar Overrides */
