@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 export default function TestimonialsSection() {
   const t = useTranslations('TestimonialsSection');
   return (
-    <section className="w-full bg-[#141B4D] px-4 py-20 flex flex-col items-center">
+    <section className="w-full bg-[#091124] px-4 py-20 flex flex-col items-center">
       <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-wide text-white mb-16 text-center">
         {t('title')}
       </h2>

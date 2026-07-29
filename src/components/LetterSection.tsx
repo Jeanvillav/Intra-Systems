@@ -63,7 +63,7 @@ export default function LetterSection() {
             />
           </div>
 
-          <div className="bg-[#141B4D] text-white p-8 mt-12 text-center rounded-lg space-y-6">
+          <div className="bg-[#091124] text-white p-8 mt-12 text-center rounded-lg space-y-6">
             <h3 className="text-xl md:text-2xl font-bold uppercase leading-relaxed text-[#fdf354]" dangerouslySetInnerHTML={{__html: t('ctaTitle')}}></h3>
             <p className="text-lg">{t('ctaP1')}</p>
             <p className="text-lg" dangerouslySetInnerHTML={{__html: t('ctaP2')}}></p>
