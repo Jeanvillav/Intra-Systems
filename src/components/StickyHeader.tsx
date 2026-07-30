@@ -28,8 +28,8 @@ export default function StickyHeader() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const switchLocale = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const nextLocale = e.target.value;
+  const toggleLocale = () => {
+    const nextLocale = currentLocale === 'en' ? 'es' : 'en';
     router.replace(pathname, { locale: nextLocale });
   };
 
@@ -49,14 +49,12 @@ export default function StickyHeader() {
 
         {/* Language Switcher and CTA Button */}
         <div className="flex items-center gap-4">
-          <select 
-            value={currentLocale} 
-            onChange={switchLocale}
-            className="bg-transparent text-white border border-white/30 rounded px-2 py-1 text-sm focus:outline-none cursor-pointer"
+          <button 
+            onClick={toggleLocale}
+            className="bg-transparent text-white border border-white/30 rounded px-3 py-1.5 text-sm focus:outline-none cursor-pointer hover:bg-white/10 transition-colors font-medium"
           >
-            <option value="en" className="text-black">🇬🇧 EN</option>
-            <option value="es" className="text-black">🇪🇸 ES</option>
-          </select>
+            {currentLocale === 'en' ? '🇪🇸 ES' : '🇬🇧 EN'}
+          </button>
           <a 
             href="#booking" 
             className="bg-[#fdf354] text-[#091124] px-6 py-2 uppercase tracking-wider font-bold hover:bg-opacity-90 transition-colors text-sm rounded-sm"
