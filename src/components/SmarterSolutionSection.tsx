@@ -74,7 +74,7 @@ export default function SmarterSolutionSection() {
             {t('smReadyText')}
           </p>
           <p className="text-[#091124] uppercase text-xl mb-10 tracking-widest font-bold">
-            BOOK A CALL WITH ME OR MY TEAM
+            {t('smBookCallText')}
           </p>
           <a 
             href="#booking"
