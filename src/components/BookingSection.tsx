@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Calendar from "react-calendar";
 import { addDays, isWeekend, startOfDay } from "date-fns";
 import Image from "next/image";
@@ -10,6 +10,33 @@ import * as z from "zod";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { submitBooking } from "@/app/actions/booking";
+
+const TIMEZONE_OPTIONS = [
+  { value: "Europe/London", label: "🇬🇧 London (GMT / BST)" },
+  { value: "Europe/Madrid", label: "🇪🇸 Madrid / Barcelona (CET / CEST)" },
+  { value: "Europe/Berlin", label: "🇩🇪 Berlin / Frankfurt (CET / CEST)" },
+  { value: "Europe/Paris", label: "🇫🇷 Paris (CET / CEST)" },
+  { value: "Europe/Rome", label: "🇮🇹 Rome (CET / CEST)" },
+  { value: "Europe/Amsterdam", label: "🇳🇱 Amsterdam (CET / CEST)" },
+  { value: "Europe/Brussels", label: "🇧🇪 Brussels (CET / CEST)" },
+  { value: "Europe/Zurich", label: "🇨🇭 Zurich (CET / CEST)" },
+  { value: "Europe/Lisbon", label: "🇵🇹 Lisbon (WET / WEST)" },
+  { value: "Europe/Athens", label: "🇬🇷 Athens (EET / EEST)" },
+  { value: "America/Guayaquil", label: "🇪🇨 Ecuador (Quito, Guayaquil) (GMT-5)" },
+  { value: "America/Bogota", label: "🇨🇴 Colombia (Bogotá) (GMT-5)" },
+  { value: "America/Lima", label: "🇵🇪 Peru (Lima) (GMT-5)" },
+  { value: "America/Mexico_City", label: "🇲🇽 Mexico City (GMT-6)" },
+  { value: "America/New_York", label: "🇺🇸 US Eastern (New York, Miami) (EST / EDT)" },
+  { value: "America/Chicago", label: "🇺🇸 US Central (Chicago, Dallas) (CST / CDT)" },
+  { value: "America/Denver", label: "🇺🇸 US Mountain (Denver) (MST / MDT)" },
+  { value: "America/Los_Angeles", label: "🇺🇸 US Pacific (Los Angeles) (PST / PDT)" },
+  { value: "America/Santiago", label: "🇨🇱 Chile (Santiago) (CLT)" },
+  { value: "America/Argentina/Buenos_Aires", label: "🇦🇷 Argentina (Buenos Aires) (ART)" },
+  { value: "America/Sao_Paulo", label: "🇧🇷 Brazil (São Paulo) (BRT)" },
+  { value: "Asia/Dubai", label: "🇦🇪 UAE (Dubai) (GST)" },
+  { value: "Asia/Singapore", label: "🇸🇬 Singapore (SGT)" },
+  { value: "Australia/Sydney", label: "🇦🇺 Australia (Sydney) (AEST)" },
+];
 
 // Form Validation Schema
 const bookingSchema = z.object({
@@ -51,8 +78,18 @@ export default function BookingSection() {
 
   useEffect(() => {
     setIsMounted(true);
-    setUserTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone);
+    const detected = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    setUserTimezone(detected || "America/Guayaquil");
   }, []);
+
+  const effectiveTimezones = useMemo(() => {
+    if (!userTimezone) return TIMEZONE_OPTIONS;
+    const exists = TIMEZONE_OPTIONS.some((tz) => tz.value === userTimezone);
+    if (!exists) {
+      return [{ value: userTimezone, label: `🌐 Detected (${userTimezone.replace(/_/g, " ")})` }, ...TIMEZONE_OPTIONS];
+    }
+    return TIMEZONE_OPTIONS;
+  }, [userTimezone]);
 
   const minDate = startOfDay(new Date());
   
@@ -187,9 +224,25 @@ export default function BookingSection() {
                     locale="en-GB"
                     className="shadow-sm border border-gray-100 rounded-lg"
                   />
-                  <p className="mt-4 text-sm text-gray-500 font-medium">
-                    {t('timezone')} {userTimezone}
-                  </p>
+                  <div className="mt-4 flex flex-col items-center w-full max-w-[320px]">
+                    <div className="flex items-center gap-1.5 text-xs text-gray-500 font-semibold mb-1.5 uppercase tracking-wider">
+                      <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span>{t('timezone')}</span>
+                    </div>
+                    <select
+                      value={userTimezone}
+                      onChange={(e) => setUserTimezone(e.target.value)}
+                      className="w-full bg-gray-50 border border-gray-300 text-gray-800 text-xs font-medium rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none shadow-sm cursor-pointer hover:bg-white transition-colors"
+                    >
+                      {effectiveTimezones.map((tz) => (
+                        <option key={tz.value} value={tz.value}>
+                          {tz.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </>
               ) : (
                 <div className="w-[350px] h-[300px] bg-gray-100 animate-pulse rounded-lg flex items-center justify-center text-gray-400">
@@ -208,9 +261,13 @@ export default function BookingSection() {
                       <button
                         key={idx}
                         onClick={() => setSelectedSlot(slot)}
-                        className="p-3 border-2 border-blue-500 text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition-colors"
+                        className="p-3 border-2 border-blue-500 text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-sm"
                       >
-                        {slot.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        {slot.toLocaleTimeString([], { 
+                          hour: '2-digit', 
+                          minute: '2-digit',
+                          timeZone: userTimezone || undefined
+                        })}
                       </button>
                     ))}
                   </div>
@@ -223,7 +280,7 @@ export default function BookingSection() {
                     <div>
                       <p className="text-sm text-gray-500 font-bold">{t('selectedTime')}</p>
                       <p className="font-bold text-blue-700">
-                        {selectedSlot.toLocaleDateString()} at {selectedSlot.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        {selectedSlot.toLocaleDateString([], { timeZone: userTimezone || undefined })} at {selectedSlot.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', timeZone: userTimezone || undefined })}
                       </p>
                     </div>
                     <button type="button" onClick={() => setSelectedSlot(null)} className="text-sm underline text-blue-600 font-bold">{t('change')}</button>
