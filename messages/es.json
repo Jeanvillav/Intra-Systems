@@ -118,7 +118,8 @@
     "selectedTime": "Hora Seleccionada",
     "change": "Cambiar",
     "selectDate": "Por favor, selecciona una fecha en el calendario para ver los horarios disponibles.",
-    "timezone": "Tu Zona Horaria:"
+    "timezone": "Tu Zona Horaria:",
+    "addToGoogleCalendar": "Añadir a Google Calendar"
   },
   "Footer": {
     "copyright": "Derechos de autor 2025. Todos los derechos reservados",

@@ -42,6 +42,7 @@ export default function BookingSection() {
   const [userTimezone, setUserTimezone] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState<{type: "success" | "error", text: string} | null>(null);
+  const [bookingResult, setBookingResult] = useState<{ zoomLink?: string; meetingTime?: string } | null>(null);
 
   const { register, handleSubmit, control, formState: { errors } } = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
@@ -71,7 +72,7 @@ export default function BookingSection() {
     setSelectedSlot(null);
     
     if (value instanceof Date) {
-      // Generate slots for 13:00 to 19:00 Ecuador Time (GMT-5)
+      // Generate slots for 08:00 to 13:00 Ecuador Time (GMT-5)
       const year = value.getFullYear();
       const month = String(value.getMonth() + 1).padStart(2, '0');
       const day = String(value.getDate()).padStart(2, '0');
@@ -90,7 +91,7 @@ export default function BookingSection() {
         console.error("Failed to fetch booked slots", err);
       }
 
-      for (let hour = 13; hour <= 19; hour++) {
+      for (let hour = 8; hour <= 13; hour++) {
         // Create an ISO string with the fixed -05:00 offset for Ecuador
         const isoString = `${year}-${month}-${day}T${String(hour).padStart(2, '0')}:00:00-05:00`;
         const slotDate = new Date(isoString);
@@ -108,10 +109,31 @@ export default function BookingSection() {
     }
   };
 
+  function getGoogleCalendarUrl(meetingTimeStr?: string, zoomLinkStr?: string) {
+    if (!meetingTimeStr) return "#";
+    const start = new Date(meetingTimeStr);
+    const end = new Date(start.getTime() + 60 * 60 * 1000);
+    const formatGCal = (d: Date) => d.toISOString().replace(/-|:|\.\d\d\d/g, "");
+    
+    const title = "Consultation with Kevin Easter - Intra Systems";
+    const details = `Consultation meeting with Kevin Easter.\n\nJoin Zoom Meeting: ${zoomLinkStr || ""}`;
+    
+    const params = new URLSearchParams({
+      action: "TEMPLATE",
+      text: title,
+      dates: `${formatGCal(start)}/${formatGCal(end)}`,
+      details: details,
+      location: zoomLinkStr || "",
+    });
+    
+    return `https://calendar.google.com/calendar/render?${params.toString()}`;
+  }
+
   const onSubmit = async (data: BookingFormData) => {
     if (!selectedSlot) return;
     setIsSubmitting(true);
     setSubmitMessage(null);
+    setBookingResult(null);
     
     const payload = {
       ...data,
@@ -125,6 +147,7 @@ export default function BookingSection() {
 
     if (result.success) {
       setSubmitMessage({ type: "success", text: "Booking confirmed! We have saved your slot." });
+      setBookingResult({ zoomLink: result.zoomLink, meetingTime: result.meetingTime });
       // Optionally reset form here, but showing success is good enough for now.
     } else {
       setSubmitMessage({ type: "error", text: result.error || "An error occurred." });
@@ -290,7 +313,20 @@ export default function BookingSection() {
 
                   {submitMessage && (
                     <div className={`p-4 rounded-lg font-bold text-center ${submitMessage.type === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-                      {submitMessage.type === "success" ? t('successMessage') : submitMessage.text}
+                      <p>{submitMessage.type === "success" ? t('successMessage') : submitMessage.text}</p>
+                      {submitMessage.type === "success" && bookingResult && (
+                        <a
+                          href={getGoogleCalendarUrl(bookingResult.meetingTime, bookingResult.zoomLink)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-2 w-full bg-[#4285F4] text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition-colors shadow-md mt-4 text-sm uppercase tracking-wide"
+                        >
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                          </svg>
+                          {t('addToGoogleCalendar')}
+                        </a>
+                      )}
                     </div>
                   )}
 

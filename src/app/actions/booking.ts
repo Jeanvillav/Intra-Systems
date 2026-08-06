@@ -2,7 +2,7 @@
 
 import { createClient } from "@supabase/supabase-js";
 import nodemailer from "nodemailer";
-import { getBookedEmail1, getCancelledEmail1 } from "@/lib/emailTemplates";
+import { getBookedEmail1, getCancelledEmail1, generateIcsContent } from "@/lib/emailTemplates";
 import { formatInTimeZone } from 'date-fns-tz';
 
 const transporter = nodemailer.createTransport({
@@ -163,13 +163,19 @@ export async function submitBooking(data: any) {
         };
 
         const emailTemplate = getBookedEmail1(bookingData);
+        const icsData = generateIcsContent(bookingData);
 
-        // Send email to the client
+        // Send email to the client with interactive calendar invitation
         await transporter.sendMail({
           from: `"Intra-Systems" <${process.env.GMAIL_USER}>`,
           to: data.email,
           subject: emailTemplate.subject,
           html: emailTemplate.html,
+          icalEvent: {
+            filename: "invitation.ics",
+            method: "request",
+            content: icsData,
+          },
         });
 
         const dateStr = new Date(data.meeting_time).toLocaleString("en-GB", {
@@ -201,7 +207,11 @@ export async function submitBooking(data: any) {
       // We don't fail the whole action if email fails, as the booking is already in the DB.
     }
 
-    return { success: true };
+    return { 
+      success: true,
+      zoomLink: zoomLink,
+      meetingTime: data.meeting_time
+    };
   } catch (err: any) {
     console.error("Action error:", err);
     return { success: false, error: err.message || "Unknown error occurred" };

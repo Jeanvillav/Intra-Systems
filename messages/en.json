@@ -118,7 +118,8 @@
     "selectedTime": "Selected Time",
     "change": "Change",
     "selectDate": "Please select a date on the calendar to see available times.",
-    "timezone": "Your Timezone:"
+    "timezone": "Your Timezone:",
+    "addToGoogleCalendar": "Add to Google Calendar"
   },
   "Footer": {
     "copyright": "Copyright 2025. All rights reserved",

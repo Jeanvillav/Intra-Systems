@@ -30,6 +30,59 @@ function formatTime(dateStr: string, lang: string = 'en') {
   });
 }
 
+export function getGoogleCalendarUrl(booking: {
+  first_name?: string;
+  meeting_time: string;
+  zoom_link: string;
+}) {
+  const start = new Date(booking.meeting_time);
+  const end = new Date(start.getTime() + 60 * 60 * 1000);
+  const formatGCal = (d: Date) => d.toISOString().replace(/-|:|\.\d\d\d/g, "");
+  
+  const title = `Consultation with Kevin Easter - Intra Systems`;
+  const details = `Consultation meeting with Kevin Easter.\n\nJoin Zoom Meeting: ${booking.zoom_link}`;
+  
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: title,
+    dates: `${formatGCal(start)}/${formatGCal(end)}`,
+    details: details,
+    location: booking.zoom_link,
+  });
+  
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
+export function generateIcsContent(booking: {
+  id: string;
+  first_name?: string;
+  meeting_time: string;
+  zoom_link: string;
+}) {
+  const start = new Date(booking.meeting_time);
+  const end = new Date(start.getTime() + 60 * 60 * 1000);
+  const formatIcs = (d: Date) => d.toISOString().replace(/-|:|\.\d\d\d/g, "");
+  
+  return [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Intra-Systems//Booking//EN",
+    "CALSCALE:GREGORIAN",
+    "METHOD:REQUEST",
+    "BEGIN:VEVENT",
+    `UID:booking-${booking.id}@intra-systems.com`,
+    `DTSTAMP:${formatIcs(new Date())}`,
+    `DTSTART:${formatIcs(start)}`,
+    `DTEND:${formatIcs(end)}`,
+    `SUMMARY:Consultation with Kevin Easter - Intra Systems`,
+    `DESCRIPTION:Consultation meeting with Kevin Easter.\\nZoom Link: ${booking.zoom_link}`,
+    `LOCATION:${booking.zoom_link}`,
+    "STATUS:CONFIRMED",
+    "END:VEVENT",
+    "END:VCALENDAR"
+  ].join("\r\n");
+}
+
 // ----------------------------------------------------
 // Booked Appointment Email Workflow
 // ----------------------------------------------------
@@ -39,6 +92,7 @@ export function getBookedEmail1(booking: BookingData) {
   const { reschedule } = getLinks(booking.id);
   const date = formatDate(booking.meeting_time, booking.language);
   const time = formatTime(booking.meeting_time, booking.language);
+  const gcalUrl = getGoogleCalendarUrl(booking);
 
   const subject = isEs ? "¡Tu cita está confirmada!" : "Your Appointment is Confirmed!";
   
@@ -66,7 +120,9 @@ export function getBookedEmail1(booking: BookingData) {
         <div style="text-align: center; margin: 30px 0; padding: 20px; background-color: #f8f9fa; border: 2px solid #141b4d; border-radius: 8px;">
           <h3 style="margin-top: 0; color: #141b4d; font-size: 20px;">Your Meeting Link</h3>
           <p style="margin-bottom: 20px; color: #333;">Click the button below at the time of your appointment to join the call:</p>
-          <a href="${booking.zoom_link}" style="background-color: #fdf354; color: #141b4d; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px; display: inline-block;">JOIN ZOOM MEETING</a>
+          <a href="${booking.zoom_link}" style="background-color: #fdf354; color: #141b4d; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px; display: inline-block; margin-bottom: 14px;">JOIN ZOOM MEETING</a>
+          <br/>
+          <a href="${gcalUrl}" target="_blank" style="background-color: #4285F4; color: #ffffff; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px; display: inline-block;">📅 ADD TO GOOGLE CALENDAR</a>
         </div>
 
         <p><strong>Reschedule Link:</strong> <a href="${reschedule}">Click here to reschedule</a></p>
@@ -100,7 +156,9 @@ export function getBookedEmail1(booking: BookingData) {
         <div style="text-align: center; margin: 30px 0; padding: 20px; background-color: #f8f9fa; border: 2px solid #141b4d; border-radius: 8px;">
           <h3 style="margin-top: 0; color: #141b4d; font-size: 20px;">Enlace de la Reunión</h3>
           <p style="margin-bottom: 20px; color: #333;">Haz clic en el botón de abajo a la hora de tu cita para unirte a la llamada:</p>
-          <a href="${booking.zoom_link}" style="background-color: #fdf354; color: #141b4d; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px; display: inline-block;">UNIRSE A LA REUNIÓN DE ZOOM</a>
+          <a href="${booking.zoom_link}" style="background-color: #fdf354; color: #141b4d; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px; display: inline-block; margin-bottom: 14px;">UNIRSE A LA REUNIÓN DE ZOOM</a>
+          <br/>
+          <a href="${gcalUrl}" target="_blank" style="background-color: #4285F4; color: #ffffff; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px; display: inline-block;">📅 AÑADIR A GOOGLE CALENDAR</a>
         </div>
 
         <p><strong>Enlace para reprogramar:</strong> <a href="${reschedule}">Haz clic aquí para reprogramar</a></p>
