@@ -38,6 +38,33 @@ const TIMEZONE_OPTIONS = [
   { value: "Australia/Sydney", label: "🇦🇺 Australia (Sydney) (AEST)" },
 ];
 
+function getCountryCodeFromTimezone(tz: string): any {
+  if (!tz) return "GB";
+  if (tz.includes("Guayaquil") || tz.includes("Galapagos")) return "EC";
+  if (tz.includes("Madrid") || tz.includes("Canary") || tz.includes("Ceuta")) return "ES";
+  if (tz.includes("London")) return "GB";
+  if (tz.includes("Berlin")) return "DE";
+  if (tz.includes("Paris")) return "FR";
+  if (tz.includes("Rome")) return "IT";
+  if (tz.includes("Amsterdam")) return "NL";
+  if (tz.includes("Brussels")) return "BE";
+  if (tz.includes("Zurich")) return "CH";
+  if (tz.includes("Lisbon")) return "PT";
+  if (tz.includes("Athens")) return "GR";
+  if (tz.includes("Bogota")) return "CO";
+  if (tz.includes("Lima")) return "PE";
+  if (tz.includes("Mexico")) return "MX";
+  if (tz.includes("Santiago")) return "CL";
+  if (tz.includes("Buenos_Aires")) return "AR";
+  if (tz.includes("Sao_Paulo")) return "BR";
+  if (tz.includes("New_York") || tz.includes("Chicago") || tz.includes("Denver") || tz.includes("Los_Angeles")) return "US";
+  if (tz.includes("Dubai")) return "AE";
+  if (tz.includes("Singapore")) return "SG";
+  if (tz.includes("Sydney") || tz.includes("Melbourne") || tz.includes("Brisbane")) return "AU";
+  
+  return "GB";
+}
+
 // Form Validation Schema
 const bookingSchema = z.object({
   firstName: z.string().min(2, "First name is required"),
@@ -325,8 +352,9 @@ export default function BookingSection() {
                       control={control}
                       render={({ field: { onChange, value } }) => (
                         <PhoneInput
+                          key={userTimezone}
                           international
-                          defaultCountry="GB"
+                          defaultCountry={getCountryCodeFromTimezone(userTimezone)}
                           value={value}
                           onChange={onChange}
                           className="w-full p-3 border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 bg-white"
