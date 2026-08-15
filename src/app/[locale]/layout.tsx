@@ -39,9 +39,10 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={resolvedParams.locale} className="scroll-smooth">
+    <html lang={resolvedParams.locale} className="scroll-smooth" suppressHydrationWarning>
       <body
         className={`${montserrat.variable} ${playfair.variable} antialiased`}
+        suppressHydrationWarning
       >
         <NextIntlClientProvider messages={messages}>
           {children}
