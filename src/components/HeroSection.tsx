@@ -20,7 +20,7 @@ export default function HeroSection() {
         <div className="mb-12 relative w-full pt-[56.25%] bg-black border-2 border-white/20 rounded-lg shadow-2xl overflow-hidden">
           <iframe
             className="absolute inset-0 w-full h-full"
-            src="https://www.youtube.com/embed/Hv8_lFwsaQs?autoplay=1&mute=1&rel=0"
+            src="https://www.youtube.com/embed/Hv8_lFwsaQs?autoplay=1&mute=0&rel=0"
             title="Intra-Systems Pitch"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
