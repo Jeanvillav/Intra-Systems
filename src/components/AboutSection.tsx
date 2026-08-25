@@ -14,15 +14,14 @@ export default function AboutSection() {
       </div>
 
       {/* Content Area */}
-      <div className="max-w-5xl mx-auto px-4 py-16 flex flex-col md:flex-row gap-12 items-start">
+      <div className="max-w-5xl mx-auto px-4 py-12 flex flex-col md:flex-row gap-12 items-start">
         <div className="flex-1 w-full space-y-12 order-2 md:order-1">
           
-          <div>
-            <h3 className="font-bold text-xl uppercase mb-2">{t('title')}</h3>
-            <p className="text-gray-700 leading-relaxed">
+          <div className="bg-[var(--color-accent-green)] p-6 rounded-sm">
+            <p className="text-[#091124] leading-relaxed text-lg md:text-xl font-medium">
               {t('p1')}
             </p>
-            <p className="text-gray-700 leading-relaxed mt-4">
+            <p className="text-[#091124] leading-relaxed text-lg md:text-xl mt-4 font-medium">
               {t('p2')}
             </p>
           </div>
@@ -58,8 +57,8 @@ export default function AboutSection() {
         </div>
 
         {/* Photo Column */}
-        <div className="w-full md:w-1/3 flex flex-col items-center pt-8 order-1 md:order-2">
-          <div className="w-64 h-80 bg-gray-200 border-4 border-[var(--color-accent-green)] relative rounded-sm shadow-xl overflow-hidden">
+        <div className="w-full md:w-1/3 flex flex-col items-center order-1 md:order-2">
+          <div className="w-64 h-64 relative rounded-full shadow-xl overflow-hidden mb-6">
             <Image
               src="/TioKevin.jpeg"
               alt="Kevin Easter"
@@ -67,11 +66,7 @@ export default function AboutSection() {
               className="object-cover"
             />
           </div>
-          <div className="mt-8">
-            <a href="#booking" className="bg-[#091124] text-white border-2 border-[#091124] px-8 py-3 uppercase tracking-wider font-bold hover:bg-white hover:text-[#091124] transition-all duration-300 inline-block cursor-pointer">
-              {t('bookCall')}
-            </a>
-          </div>
+          <h3 className="font-bold text-xl uppercase text-center tracking-wide">{t('title')}</h3>
         </div>
       </div>
     </section>
