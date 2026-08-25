@@ -15,7 +15,7 @@ export default function AboutSection() {
 
       {/* Content Area */}
       <div className="max-w-5xl mx-auto px-4 py-16 flex flex-col md:flex-row gap-12 items-start">
-        <div className="flex-1 w-full space-y-12">
+        <div className="flex-1 w-full space-y-12 order-2 md:order-1">
           
           <div>
             <h3 className="font-bold text-xl uppercase mb-2">{t('title')}</h3>
@@ -58,7 +58,7 @@ export default function AboutSection() {
         </div>
 
         {/* Photo Column */}
-        <div className="w-full md:w-1/3 flex flex-col items-center pt-8">
+        <div className="w-full md:w-1/3 flex flex-col items-center pt-8 order-1 md:order-2">
           <div className="w-64 h-80 bg-gray-200 border-4 border-[var(--color-accent-green)] relative rounded-sm shadow-xl overflow-hidden">
             <Image
               src="/TioKevin.jpeg"
