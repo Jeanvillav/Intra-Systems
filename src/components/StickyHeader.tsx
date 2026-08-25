@@ -47,7 +47,7 @@ export default function StickyHeader() {
           </div>
         </div>
 
-        {/* Language Switcher and CTA Button */}
+        {/* Language Switcher */}
         <div className="flex items-center gap-4">
           <button 
             onClick={toggleLocale}
@@ -55,12 +55,6 @@ export default function StickyHeader() {
           >
             {currentLocale === 'en' ? '🇪🇸 ES' : '🇬🇧 EN'}
           </button>
-          <a 
-            href="#booking" 
-            className="bg-[#fdf354] text-[#091124] px-6 py-2 uppercase tracking-wider font-bold hover:bg-opacity-90 transition-colors text-sm rounded-sm"
-          >
-            {t('makeAppointment')}
-          </a>
         </div>
       </div>
     </div>
