@@ -9,14 +9,22 @@ export default function CookieBanner() {
   const locale = useLocale();
 
   useEffect(() => {
-    const consent = localStorage.getItem('cookie_consent');
-    if (!consent) {
-      setShowBanner(true);
+    try {
+      const consent = localStorage.getItem('cookie_consent');
+      if (!consent) {
+        setShowBanner(true);
+      }
+    } catch (e) {
+      console.warn("localStorage not accessible", e);
     }
   }, []);
 
   const acceptCookies = () => {
-    localStorage.setItem('cookie_consent', 'true');
+    try {
+      localStorage.setItem('cookie_consent', 'true');
+    } catch (e) {
+      console.warn("localStorage not accessible", e);
+    }
     setShowBanner(false);
   };
 
