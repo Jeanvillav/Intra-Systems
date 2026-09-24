@@ -75,6 +75,7 @@ const bookingSchema = z.object({
   termsAccepted: z.literal(true, {
     message: "You must accept the terms and conditions",
   }),
+  botField: z.string().optional(),
 });
 
 type BookingFormData = z.infer<typeof bookingSchema>;
@@ -195,6 +196,11 @@ export default function BookingSection() {
 
   const onSubmit = async (data: BookingFormData) => {
     if (!selectedSlot) return;
+    if (data.botField) {
+      // Spam detected via honeypot. Fail silently or show generic message.
+      setSubmitMessage({ type: "success", text: "Booking confirmed! We have saved your slot." });
+      return;
+    }
     setIsSubmitting(true);
     setSubmitMessage(null);
     setBookingResult(null);
@@ -311,6 +317,11 @@ export default function BookingSection() {
                       </p>
                     </div>
                     <button type="button" onClick={() => setSelectedSlot(null)} className="text-sm underline text-blue-600 font-bold">{t('change')}</button>
+                  </div>
+
+                  <div className="hidden" aria-hidden="true">
+                    <label>Do not fill this out if you are human:</label>
+                    <input {...register("botField")} tabIndex={-1} autoComplete="off" />
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
