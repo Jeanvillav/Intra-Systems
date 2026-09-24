@@ -4,7 +4,8 @@ export default function PrivacyPolicy() {
   const locale = useLocale();
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-24 text-[#091124] min-h-screen">
+    <div className="w-full bg-white text-[#091124] min-h-screen">
+      <div className="max-w-4xl mx-auto px-4 py-24">
       <h1 className="text-3xl md:text-4xl font-bold mb-8 uppercase tracking-wide">
         {locale === 'es' ? 'Política de Privacidad' : 'Privacy Policy'}
       </h1>
@@ -50,6 +51,7 @@ export default function PrivacyPolicy() {
           If you have any questions about this privacy policy or our privacy practices, please contact us at: <br/>
           <strong>Email:</strong> intra.systems.uk@gmail.com
         </p>
+      </div>
       </div>
     </div>
   );
