@@ -15,7 +15,13 @@ export default function Footer() {
         <div className="relative w-72 h-24">
           <Image src="/logo.png" alt="Intra-Systems Logo" fill className="object-contain" />
         </div>
-        <Link href="/admin" className="text-gray-400 text-sm tracking-widest uppercase mt-4 hover:text-gray-300 transition-colors">
+        <div className="flex gap-4 mt-6 text-sm text-gray-400">
+          <Link href="/en/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+          <span>|</span>
+          <Link href="/en/terms" className="hover:text-white transition-colors">Terms & Conditions</Link>
+        </div>
+
+        <Link href="/admin" className="text-gray-400 text-xs tracking-widest uppercase mt-4 hover:text-gray-300 transition-colors">
           {t('copyright')}
         </Link>
       </div>
